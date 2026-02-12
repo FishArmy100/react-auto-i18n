@@ -1,5 +1,31 @@
 {
-    "name": "react-auto-i18n",
-    "version": "0.1.0",
-    "description": ""
+	"name": "react-auto-i18n",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js"
+	},
+	"scripts": {
+		"build": "tsup src/index.ts --format esm --dts",
+  		"dev": "tsup src/index.ts --watch --format esm --dts"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "module",
+	"peerDependencies": {
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4"
+	},
+	"devDependencies": {
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"tsup": "^8.5.1",
+		"typescript": "^5.9.3"
+	}
 }
