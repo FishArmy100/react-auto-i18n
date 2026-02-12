@@ -2,6 +2,7 @@
     "cSpell.words": [
         "dactite",
         "NLLB",
-        "pydantic"
+        "pydantic",
+        "sentencepiece"
     ]
 }

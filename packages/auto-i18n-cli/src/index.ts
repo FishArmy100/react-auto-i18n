@@ -7,7 +7,7 @@ import * as path from 'path';
 function main() 
 {
     const args: TranslateArgs = {
-		langs: ["fra_Latn", "spa_Latn"],
+		langs: ["fra_Latn", "spa_Latn", "ita_Latn"],
 		src_lang: "eng_Latn",
 		segments: {
 			"test": "This is some test text",
