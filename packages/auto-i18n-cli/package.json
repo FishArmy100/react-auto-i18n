@@ -30,6 +30,7 @@
         "typescript": "^5.0.0"
     },
     "dependencies": {
+        "glob": "^13.0.3",
         "python-shell": "^5.0.0"
     }
 }
