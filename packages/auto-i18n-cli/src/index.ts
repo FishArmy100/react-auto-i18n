@@ -158,7 +158,7 @@ async function generate_files(args: TranslateArgs, out: string)
     return await run_python(args)
 		.then(o => {
 			fs.mkdirSync(path.dirname(out), { recursive: true });
-			fs.writeFileSync(out, JSON.stringify(o, null, 2));
+			fs.writeFileSync(out, JSON.stringify(o.values, null, 2));
 		})
 		.catch(logError);
 }
