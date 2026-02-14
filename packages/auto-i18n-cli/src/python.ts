@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PythonShell } from 'python-shell';
-import { NLLBLanguageCode } from './langs';
+import { LanguageCode } from './langs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,8 +10,8 @@ const python_path = path.resolve(__dirname, "../../../translator/translate.py");
 
 export type TranslateArgs = {
     segments: { [i: string]: string }
-    langs: NLLBLanguageCode[],
-    src_lang: NLLBLanguageCode,
+    langs: LanguageCode[],
+    src_lang: LanguageCode,
 }
 
 export type TranslateResult = {
