@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useI18n } from "./I18nProvider";
-import { setCurrentLocal as setCurrentLocale, setI18nDatabase } from "./i18n";
+import { setCurrentLocalRaw as setCurrentLocale, setI18nDatabaseRaw } from "./i18n";
 
 export function I18nBinder(): React.ReactElement
 {
@@ -8,7 +8,7 @@ export function I18nBinder(): React.ReactElement
 
     useEffect(() => {
         setCurrentLocale(locale);
-        setI18nDatabase(database ?? {})
+        setI18nDatabaseRaw(database ?? {})
     }, [locale, database]);
 
     return <></>;

@@ -1,4 +1,9 @@
 {
     "private": true,
-    "workspaces": ["packages/*"]
+    "workspaces": [
+        "packages/*"
+    ],
+    "dependencies": {
+        "ts-command-line-args": "^2.5.1"
+    }
 }

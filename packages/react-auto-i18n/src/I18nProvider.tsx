@@ -6,7 +6,7 @@ export interface I18nContextType
 {
     readonly locale: LangCode,
     readonly database: I18nDatabase,
-    readonly setLanguage: (language: LangCode) => void,
+    readonly setLocale: (locale: LangCode) => void,
     readonly setDatabase: (database: I18nDatabase) => void,
 }
 
@@ -24,11 +24,11 @@ export function I18nProvider({
     default_database = {},
 }: I18nProviderProps): React.ReactElement
 {
-    const [locale, setLanguage] = useState<LangCode>(default_lang);
+    const [locale, setLocale] = useState<LangCode>(default_lang);
     const [database, setDatabase] = useState<I18nDatabase>(default_database);
 
     return (
-        <I18nContext value={{ locale, database, setLanguage, setDatabase }}>
+        <I18nContext value={{ locale, database, setLocale, setDatabase }}>
             {children}
         </I18nContext>
     )

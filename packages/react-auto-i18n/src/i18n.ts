@@ -6,12 +6,12 @@ export type LanguageTranslations = Partial<Record<string, string>>
 let currentLocale: LangCode = "eng_Latn";
 let database: I18nDatabase = {}
 
-export function setI18nDatabase(db: I18nDatabase)
+export function setI18nDatabaseRaw(db: I18nDatabase)
 {
     database = db
 }
 
-export function setCurrentLocal(locale: LangCode)
+export function setCurrentLocalRaw(locale: LangCode)
 {
     currentLocale = locale
 }
