@@ -82,7 +82,7 @@ async function main()
 async function runWithOptions(options: ProgramOptions)
 {
 	logMessage("Running command...")
-	const validated = validate_program_options(options);
+	const validated = validateProgramOptions(options);
 	if (!validated) return;
 
 	const { langs, input, output, source_lang } = validated;
@@ -103,7 +103,7 @@ async function runWithOptions(options: ProgramOptions)
 		}, {});
 
 	logMessage("Translating...");
-	await generate_files({
+	await generateFiles({
 		src_lang: source_lang,
 		segments,
 		langs,
@@ -113,7 +113,7 @@ async function runWithOptions(options: ProgramOptions)
 	logMessage(`Extraction & Translation complete! Translations located at: ${fullOutPath}`);
 }
 
-function validate_program_options(options: ProgramOptions): { langs: LanguageCode[], input: string, output: string, source_lang: LanguageCode } | null
+function validateProgramOptions(options: ProgramOptions): { langs: LanguageCode[], input: string, output: string, source_lang: LanguageCode } | null
 {
 	const inputPath = path.resolve(options.input);
 	if (!fs.existsSync(inputPath))
@@ -154,7 +154,7 @@ function validate_program_options(options: ProgramOptions): { langs: LanguageCod
 	return { langs, input: inputPath, output, source_lang }
 }
 
-async function generate_files(args: TranslateArgs, out: string)
+async function generateFiles(args: TranslateArgs, out: string)
 {	
 	const bar = new SingleBar({
 		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || ETA: {eta_formatted}`),
