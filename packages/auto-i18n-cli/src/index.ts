@@ -157,7 +157,7 @@ function validate_program_options(options: ProgramOptions): { langs: LanguageCod
 async function generate_files(args: TranslateArgs, out: string)
 {	
 	const bar = new SingleBar({
-		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || Speed: {speed}`),
+		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || ETA: {eta_formatted}`),
 		barCompleteChar: '\u2588',
 		barCompleteString: '\u2591',
 		hideCursor: true,
