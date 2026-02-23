@@ -14,6 +14,11 @@ class Args(BaseModel):
 class Ret(BaseModel):
     values: dict[str, dict[str, str]]
 
+def emit_progress(current: int, total: int, lang: str):
+    progress = { "type": "progress", "current": current, "total": total, "lang": lang }
+    print(json.dumps(progress, ensure_ascii=False), flush=True)
+
+
 def translate(segment: str, lang: str, src_lang, model, tokenizer) -> str:
     tokenizer.src_lang = src_lang
     inputs = tokenizer(segment, return_tensors="pt")
@@ -38,20 +43,25 @@ def main():
         tokenizer = NllbTokenizer.from_pretrained(model_name)
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
+        total = len(args.langs) * len(args.segments)
+        current = 0
+
         ret = Ret(values={})
         for l in args.langs:
             ret.values[l] = {}
             for k, s in args.segments.items():
                 translated = translate(s, l, args.src_lang, model, tokenizer)
                 ret.values[l][k] = translated
+                current += 1
+                emit_progress(current, total, l)
 
         ret.values[args.src_lang] = {}
         for k, s in args.segments.items():
             ret.values[args.src_lang][k] = s
         
-        print(json.dumps(ret.model_dump(), ensure_ascii=False))
+        print(json.dumps({"type": "result", **ret.model_dump()}, ensure_ascii=False))
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(json.dumps({"type": "error", "message": str(e)}), flush=True)
         sys.exit(1)
 
 if __name__ == "__main__":

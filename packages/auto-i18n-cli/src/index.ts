@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { run_python, TranslateArgs } from "./python.js";
+import { ProgressUpdate, runPython, TranslateArgs } from "./python_ffi.js";
 import { parse } from 'ts-command-line-args';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -9,6 +9,7 @@ import { LanguageCode, stringToLanguageCode } from "./langs.js";
 import { parseTSFiles } from "./parser.js";
 import chalk from "chalk";
 import { logError, logMessage } from "./utils.js";
+import { SingleBar } from "cli-progress"
 
 type ProgramOptions = {
 	languages?: string[],
@@ -75,10 +76,10 @@ async function main()
 	}
 
 
-	run_with_options(options)
+	runWithOptions(options)
 }
 
-async function run_with_options(options: ProgramOptions)
+async function runWithOptions(options: ProgramOptions)
 {
 	logMessage("Running command...")
 	const validated = validate_program_options(options);
@@ -155,12 +156,32 @@ function validate_program_options(options: ProgramOptions): { langs: LanguageCod
 
 async function generate_files(args: TranslateArgs, out: string)
 {	
-    return await run_python(args)
+	const bar = new SingleBar({
+		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || Speed: {speed}`),
+		barCompleteChar: '\u2588',
+		barCompleteString: '\u2591',
+		hideCursor: true,
+	});
+
+	let bar_started = false;
+
+    return await runPython(args, (p: ProgressUpdate) => 
+		{
+			if (!bar_started)
+			{
+				bar.start(args.langs.length * Object.values(args.segments).length, 0);
+				bar_started = true;
+			}
+			bar.update(p.current)
+		})
 		.then(o => {
 			fs.mkdirSync(path.dirname(out), { recursive: true });
 			fs.writeFileSync(out, JSON.stringify(o.values, null, 2));
 		})
-		.catch(logError);
+		.catch(logError)
+		.finally(() => {
+			bar.stop();
+		});
 }
 
 main();
