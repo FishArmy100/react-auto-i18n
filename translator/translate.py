@@ -1,5 +1,5 @@
 import sys
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer
+from transformers import AutoModelForSeq2SeqLM, NllbTokenizer
 from pydantic import BaseModel
 import json
 import io
