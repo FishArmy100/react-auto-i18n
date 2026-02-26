@@ -4,7 +4,7 @@ import { ProgressUpdate, runPython, TranslateArgs } from "./python_ffi.js";
 import { parse } from 'ts-command-line-args';
 import * as fs from 'fs';
 import * as path from 'path';
-import pkg from "../package.json"
+import pkg from "../package.json" with { type: 'json' }
 import { LanguageCode, stringToLanguageCode } from "./langs.js";
 import { parseTSFiles } from "./parser.js";
 import chalk from "chalk";
