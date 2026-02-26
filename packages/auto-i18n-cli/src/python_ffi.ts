@@ -1,8 +1,8 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PythonShell } from 'python-shell';
-import { LanguageCode } from './langs';
-import { logMessage, logWarning } from './utils';
+import { LanguageCode } from './langs.js';
+import { logMessage, logWarning } from './utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

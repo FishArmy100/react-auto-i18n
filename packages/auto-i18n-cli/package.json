@@ -6,6 +6,7 @@
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc",
+        "prepare": "npm run build",
         "dev": "tsx src/index.ts",
         "test": "vitest",
         "prepublishOnly": "npm run build",
@@ -19,8 +20,7 @@
     "author": "Nate Craver",
     "license": "MIT",
     "files": [
-        "dist",
-        "../../python"
+        "dist"
     ],
     "bin": {
         "auto-i18n-cli": "./dist/index.js"
