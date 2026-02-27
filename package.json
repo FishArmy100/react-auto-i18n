@@ -4,6 +4,8 @@
         "packages/*"
     ],
     "dependencies": {
+        "all-iso-language-codes": "^1.0.21",
+        "iso-639-3": "^3.0.1",
         "ts-command-line-args": "^2.5.1"
     }
 }

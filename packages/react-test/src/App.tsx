@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import type React from 'react';
 import { useMemo } from 'react';
-import { __t, useI18n, type LangCode } from 'react-auto-i18n';
+import { __t, getLangCode, getLocaleLangName, useI18n, type LangScriptCode } from 'react-auto-i18n';
 
 export default function App(): React.ReactElement
 {
@@ -14,7 +14,7 @@ export default function App(): React.ReactElement
 	return (
 		<Box>
 			<Typography>
-				{`Selected Locale: ${i18n.locale}`}
+				{`Selected Locale: ${getLocaleLangName(getLangCode(i18n.locale))}`}
 			</Typography>
 			<Typography>
 				{text}
@@ -22,7 +22,7 @@ export default function App(): React.ReactElement
 			<Box>
 				{Object.keys(i18n.database).map(l => (
 					<Button
-						onClick={() => i18n.setLocale(l as LangCode)}
+						onClick={() => i18n.setLocale(l as LangScriptCode)}
 					>
 						{l}
 					</Button>

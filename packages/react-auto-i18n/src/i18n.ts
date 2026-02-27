@@ -1,9 +1,9 @@
-import { LangCode } from "./langs";
+import { LangScriptCode } from "./langs";
 
-export type I18nDatabase = Partial<Record<LangCode, LanguageTranslations>>
+export type I18nDatabase = Partial<Record<LangScriptCode, LanguageTranslations>>
 export type LanguageTranslations = Partial<Record<string, string>>
 
-let currentLocale: LangCode = "eng_Latn";
+let currentLocale: LangScriptCode = "eng_Latn";
 let database: I18nDatabase = {}
 
 export function setI18nDatabaseRaw(db: I18nDatabase)
@@ -11,7 +11,7 @@ export function setI18nDatabaseRaw(db: I18nDatabase)
     database = db
 }
 
-export function setCurrentLocalRaw(locale: LangCode)
+export function setCurrentLocalRaw(locale: LangScriptCode)
 {
     currentLocale = locale
 }

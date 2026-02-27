@@ -1,12 +1,12 @@
 import { I18nDatabase, setCurrentLocalRaw, setI18nDatabaseRaw } from "./i18n";
-import { LangCode } from "./langs";
+import { LangScriptCode } from "./langs";
 import React, { createContext, useContext, useEffect, useState } from "react"
 
 export interface I18nContextType
 {
-    readonly locale: LangCode,
+    readonly locale: LangScriptCode,
     readonly database: I18nDatabase,
-    readonly setLocale: (locale: LangCode) => void,
+    readonly setLocale: (locale: LangScriptCode) => void,
     readonly setDatabase: (database: I18nDatabase) => void,
 }
 
@@ -14,7 +14,7 @@ const I18nContext = createContext<I18nContextType | null>(null);
 
 export type I18nProviderProps = {
     children: React.ReactNode,
-    default_lang: LangCode,
+    default_lang: LangScriptCode,
     default_database: I18nDatabase,
 }
 
@@ -24,7 +24,7 @@ export function I18nProvider({
     default_database = {},
 }: I18nProviderProps): React.ReactElement
 {
-    const [localeState, setLocaleState] = useState<LangCode>(default_lang);
+    const [localeState, setLocaleState] = useState<LangScriptCode>(default_lang);
     const [databaseState, setDatabaseState] = useState<I18nDatabase>(default_database);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export function I18nProvider({
         setI18nDatabaseRaw(default_database);
     }, [])
 
-    const setLocale = (locale: LangCode) => {
+    const setLocale = (locale: LangScriptCode) => {
         setCurrentLocalRaw(locale);
         setLocaleState(locale);
     }
