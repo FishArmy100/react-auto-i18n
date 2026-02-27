@@ -1,3 +1,7 @@
+
+/**
+ * A list of all LangScriptCodes supported by the translation engine
+ */
 export const LANG_SCRIPT_CODES = [
 	'ace_Arab',
 	'ace_Latn',
@@ -221,31 +225,71 @@ export const LANG_SCRIPT_CODES = [
 	'zul_Latn',
 ] as const;
 
+/**
+ * The type of all supported `LangScriptCode`s
+ */
 export type LangScriptCode = typeof LANG_SCRIPT_CODES[number];
 
+/**
+ * The type of all language codes (i.e. the prefix of the `LangScriptCode`)
+ */
 export type LangCode = LangScriptCode extends `${infer L}_${string}` ? L : never;
 
+
+/**
+ * The type of all script codes (i.e. the suffix of the `LangScriptCode`)
+ */
 export type ScriptCode = LangScriptCode extends `${string}_${infer S}` ? S : never;
 
+/**
+ * Gets the LangCode from the `LangScriptCode`. \
+ * **Example:**
+ * ```ts
+ * let langScript: LangScriptCode = "eng_Latn";
+ * console.log(getLangCode(scriptCode)); // prints out 'eng'
+ * ```
+ * @param code The `LangScriptCode`
+ * @returns the `LangCode` of the `LangScriptCode`
+ */
 export function getLangCode(code: LangScriptCode): LangCode
 {
 	return code.split('_')[0] as LangCode
 }
 
+/**
+ * Gets the Script from the LangScriptCode. \
+ * **Example:**
+ * ```ts
+ * let langScript: LangScriptCode = "eng_Latn";
+ * console.log(getScriptCode(scriptCode)); // prints out 'Latn'
+ * ```
+ * @param code The `LangScriptCode`
+ * @returns the `Script` of the `LangScriptCode`
+ */
 export function getScriptCode(code: LangScriptCode): ScriptCode
 {
 	return code.split('_')[1] as ScriptCode;
 }
 
-/** Runtime arrays (unique values) */
+/**
+ * A list of all `LangCode`s
+ */
 export const LANG_CODES = [
   	...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[0]))
-] as LangCode[];
+] as const as LangCode[];
 
+/**
+ * A list of all `ScriptCode`s
+ */
 export const SCRIPT_CODES = [
   	...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[1]))
-] as ScriptCode[];
+] as const as ScriptCode[];
 
+/**
+ * Converts a raw string into a `LangScriptCode`, with error checking
+ * @param str The string to be passed
+ * @returns A `LangScriptCode` if the string is a valid `LangScriptCode` or `null` if it is not
+ */
 export function stringToLangScriptCode(str: string): LangScriptCode | null
 {
 	if (LANG_SCRIPT_CODES.includes(str as LangScriptCode))
@@ -258,6 +302,11 @@ export function stringToLangScriptCode(str: string): LangScriptCode | null
 	}
 }
 
+/**
+ * Converts a raw string into a `ScriptCode`, with error checking
+ * @param str The string to be passed
+ * @returns A `ScriptCode` if the string is a valid `ScriptCode` or `null` if it is not
+ */
 export function stringToScriptCode(str: string): ScriptCode | null
 {
 	if (SCRIPT_CODES.includes(str as ScriptCode))
@@ -270,6 +319,11 @@ export function stringToScriptCode(str: string): ScriptCode | null
 	}
 }
 
+/**
+ * Converts a raw string into a `LangCode`, with error checking
+ * @param str The string to be passed
+ * @returns A `LangCode` if the string is a valid `LangCode` or `null` if it is not
+ */
 export function stringToLangCode(str: string): LangCode | null
 {
 	if (LANG_CODES.includes(str as LangCode))
@@ -282,6 +336,22 @@ export function stringToLangCode(str: string): LangCode | null
 	}
 }
 
+/**
+ * A utility function for converting a `LangCode` and a `ScriptCode` into a `LangScriptCode`
+ * @param lang The `LangCode` for the `LangScriptCode`
+ * @param script The `ScriptCode` for the `LangScriptCode`
+ * @returns The formatted `LangScriptCode`
+ */
+export function formatLangScriptCode(lang: LangCode, script: ScriptCode): LangScriptCode
+{
+	return `${lang}_${script}` as LangScriptCode;
+}
+
+/**
+ * Gets the english name of a `LangCode`
+ * @param code A `LangCode`
+ * @returns The english name of the passed `LangCode`
+ */
 export function getEnglishLangName(code: LangCode): string | null
 {
 	const langNames: Record<LangCode, string> = {
@@ -500,6 +570,12 @@ export function getEnglishLangName(code: LangCode): string | null
 	return langNames[code] ?? null;
 }
 
+
+/**
+ * Gets the local name of a `LangCode`
+ * @param code A `LangCode`
+ * @returns The local name of the passed `LangCode`
+ */
 export function getLocaleLangName(code: LangCode): string | null
 {
 	const langNames: Record<LangCode, string> = {
@@ -718,3 +794,27 @@ export function getLocaleLangName(code: LangCode): string | null
 	return langNames[code] ?? null;
 }
 
+/**
+ * A country code
+ */
+export type CountryCode = 
+	| "US"
+	| "FRA"
+	| "SPA";
+
+/**
+ * Gets the `CountryCode` for the given `LangCode`. Essentially, what country most primarily speaks this language. 
+ * For example, this will return `US` even though Brittan, Austrailia, etc. also speak the language.
+ * @param code The `LangCode`
+ * @returns A `CountryCode` which represents the country 'most commonly' associated with that language. It will return null if there is no country typically associated with this langauge.
+ */
+export function getCountryCode(code: LangCode): CountryCode | null
+{
+	const langCountryMap: Partial<Record<LangCode, CountryCode>> = {
+		eng: "US",
+		fra: "FRA",
+		spa: "SPA"
+	}
+
+	return langCountryMap[code] ?? null;
+}

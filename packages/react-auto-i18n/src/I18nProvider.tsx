@@ -8,6 +8,7 @@ export interface I18nContextType
     readonly database: I18nDatabase,
     readonly setLocale: (locale: LangScriptCode) => void,
     readonly setDatabase: (database: I18nDatabase) => void,
+    readonly getLocales: () => LangScriptCode[],
 }
 
 const I18nContext = createContext<I18nContextType | null>(null);
@@ -42,8 +43,12 @@ export function I18nProvider({
         setDatabaseState(database);
     }
 
+    const getLocales = () => {
+        return Object.keys(databaseState) as LangScriptCode[];
+    }
+
     return (
-        <I18nContext value={{ locale: localeState, database: databaseState, setLocale, setDatabase }}>
+        <I18nContext value={{ locale: localeState, database: databaseState, setLocale, setDatabase, getLocales, }}>
             {children}
         </I18nContext>
     )
