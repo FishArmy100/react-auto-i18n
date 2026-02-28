@@ -1,4 +1,5 @@
 import { I18nDatabase, setCurrentLocalRaw, setI18nDatabaseRaw } from "./i18n";
+import { LangScriptObj } from "./lang_script_obj";
 import { LangScriptCode } from "./langs";
 import React, { createContext, useContext, useEffect, useState } from "react"
 
@@ -11,6 +12,13 @@ export interface I18nContextType
      * The currently set `LangScriptCode`
      */
     readonly locale: LangScriptCode,
+    
+    /**
+     * Gets a wrapper `LangScriptObj` around this locale
+     * @returns a wrapper `LangScriptObj` around this locale
+     */
+    readonly getLocaleObj: () => LangScriptObj;
+
     /**
      * The currently set `I18nDatabase`
      */
@@ -109,8 +117,12 @@ export function I18nProvider({
         return Object.keys(databaseState) as LangScriptCode[];
     }
 
+    const getLocaleObj = () => {
+        return new LangScriptObj(localeState);
+    }
+
     return (
-        <I18nContext value={{ locale: localeState, database: databaseState, setLocale, setDatabase, getLocales, }}>
+        <I18nContext value={{ locale: localeState, getLocaleObj, database: databaseState, setLocale, setDatabase, getLocales, }}>
             {children}
         </I18nContext>
     )

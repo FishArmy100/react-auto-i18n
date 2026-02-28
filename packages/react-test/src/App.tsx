@@ -2,19 +2,24 @@ import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import type React from 'react';
 import { useMemo } from 'react';
-import { __t, getLangCode, getLocaleLangName, useI18n, type LangScriptCode } from 'react-auto-i18n';
+import { __t, useI18n, type LangScriptCode } from 'react-auto-i18n';
 
 export default function App(): React.ReactElement
 {
 	const i18n = useI18n();
 	const text = useMemo(() => {
 		return __t("main_message", "Hello there! this is a test message for the 'react-auto-i18n' program.")
-	}, [i18n])
+	}, [i18n]);
+
+	let lang = i18n.getLocaleObj();
 
 	return (
 		<Box>
 			<Typography>
-				{`Selected Locale: ${getLocaleLangName(getLangCode(i18n.locale))}`}
+				{
+					`Selected Locale: ${lang.getLangCode()}`
+				}
+				{lang.getCountryFlag()}
 			</Typography>
 			<Typography>
 				{text}

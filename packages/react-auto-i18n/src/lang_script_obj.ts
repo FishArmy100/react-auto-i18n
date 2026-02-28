@@ -1,4 +1,5 @@
-import { getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, LangCode, LangScriptCode, ScriptCode } from "./langs";
+import CountryFlag from "./CountryFlag";
+import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, LangCode, LangScriptCode, ScriptCode } from "./langs";
 
 /**
  * A helper wrapper object for the `LangScriptCode`, providing basic functions in an OOP style.
@@ -49,5 +50,16 @@ export class LangScriptObj
     public getEnglishName(): string | null
     {
         return getEnglishLangName(this.getLangCode());
+    }
+
+    public getCountry(): CountryCode | null
+    {
+        return getCountryCode(this.getLangCode());
+    }
+
+    public getCountryFlag(): React.ReactElement | null
+    {
+        let country = this.getCountry();
+        return country ? CountryFlag({ country }) : null
     }
 }
