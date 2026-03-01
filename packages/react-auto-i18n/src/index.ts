@@ -1,8 +1,8 @@
-export * from "./I18nProvider";
-export * from "./langs";
+export * from "./components/I18nProvider";
+export * from "./core";
 export * from "./i18n";
-export * from "./lang_script_obj";
-export * from "./CountryFlag";
+export * from "./core/lang_script_obj";
+export * from "./components/CountryFlag";
 
 import { __t } from "./i18n";
 export default __t;

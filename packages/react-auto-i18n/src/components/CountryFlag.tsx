@@ -1,5 +1,5 @@
 import React from "react";
-import { CountryCode } from "./langs";
+import { CountryCode } from "../core";
 import 'flag-icons/css/flag-icons.min.css';
 
 export type CountryFlagProps = {

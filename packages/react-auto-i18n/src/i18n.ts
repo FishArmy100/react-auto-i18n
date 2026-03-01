@@ -1,4 +1,4 @@
-import { LangScriptCode } from "./langs";
+import { LangScriptCode } from "./core";
 
 /**
  * Essentially represents all translations loaded for this application. It can be represented in JSON as:

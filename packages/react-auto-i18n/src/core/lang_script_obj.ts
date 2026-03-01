@@ -1,5 +1,5 @@
-import CountryFlag from "./CountryFlag";
-import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, LangCode, LangScriptCode, ScriptCode } from "./langs";
+import CountryFlag from "../components/CountryFlag";
+import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, LangCode, LangScriptCode, ScriptCode } from "./index";
 
 /**
  * A helper wrapper object for the `LangScriptCode`, providing basic functions in an OOP style.

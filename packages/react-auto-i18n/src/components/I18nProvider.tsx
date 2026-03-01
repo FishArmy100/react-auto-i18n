@@ -1,5 +1,5 @@
-import { I18nDatabase, setCurrentLocalRaw, setI18nDatabaseRaw } from "./i18n";
-import { LangScriptObj } from "./lang_script_obj";
+import { I18nDatabase, setCurrentLocalRaw, setI18nDatabaseRaw } from "../i18n";
+import { LangScriptObj } from "../core/lang_script_obj";
 import { LangScriptCode } from "./langs";
 import React, { createContext, useContext, useEffect, useState } from "react"
 
