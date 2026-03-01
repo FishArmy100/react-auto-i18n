@@ -1,4 +1,4 @@
-import { LANG_SCRIPT_CODES, LangScriptCode } from "./index";
+import { LANG_SCRIPT_CODES, LangScriptCode, SCRIPT_CODES } from "./index";
 
 /**
  * The type of all script codes (i.e. the suffix of the `LangScriptCode`)
@@ -19,13 +19,6 @@ export function getScriptCode(code: LangScriptCode): ScriptCode
 {
     return code.split('_')[1] as ScriptCode;
 }
-
-/**
- * A list of all `ScriptCode`s
- */
-export const SCRIPT_CODES = [
-  	...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[1]))
-] as const as ScriptCode[];
 
 /**
  * Converts a raw string into a `LangScriptCode`, with error checking

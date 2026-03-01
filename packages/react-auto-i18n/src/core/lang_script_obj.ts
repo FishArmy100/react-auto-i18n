@@ -52,11 +52,19 @@ export class LangScriptObj
         return getEnglishLangName(this.getLangCode());
     }
 
+    /**
+     * A helper function for getting the `CountryCode` most associated with this `LangScriptCode`, or `null` if there is none
+     * @returns the `CountryCode` most associated with this `LangScriptCode, or `null` if there is none
+     */
     public getCountry(): CountryCode | null
     {
         return getCountryCode(this.getLangCode());
     }
 
+    /**
+     * A helper function that invokes the `CountryFlag` component, with the country code most associated with this `LangScriptCode`, or null if there is none
+     * @returns the `CountryFlag` component, with the country code most associated with this `LangScriptCode`, or null if there is none
+     */
     public getCountryFlag(): React.ReactElement | null
     {
         let country = this.getCountry();

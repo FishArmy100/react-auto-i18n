@@ -1,8 +1,8 @@
 const { exec } = require('child_process')
 const path = require('path')
 
-const python_dir = path.resolve(__dirname, '../../translator')
-const requirements = path.join(python_dir, 'requirements.txt')
+const python_dir = path.resolve(__dirname, './translator');
+const requirements = path.join(python_dir, 'requirements.txt');
 
 const cmd = `pip install -r "${requirements}" || true`;
 

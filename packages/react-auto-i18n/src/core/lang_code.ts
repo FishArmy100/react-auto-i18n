@@ -1,16 +1,9 @@
-import { LANG_SCRIPT_CODES, LangScriptCode } from "./index";
+import { LANG_CODES, LANG_SCRIPT_CODES, LangScriptCode } from "./index";
 
 /**
  * The type of all language codes (i.e. the prefix of the `LangScriptCode`)
  */
 export type LangCode = LangScriptCode extends `${infer L}_${string}` ? L : never;
-
-/**
- * A list of all `LangCode`s
- */
-export const LANG_CODES = [
-    ...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[0]))
-] as const as LangCode[];
 
 /**
  * Gets the LangCode from the `LangScriptCode`. \

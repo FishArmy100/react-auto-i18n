@@ -4,6 +4,7 @@ import { ScriptCode } from "./script_code";
 export * from "./country";
 export * from "./lang_code";
 export * from "./script_code";
+export * from "./lang_script_obj";
 
 /**
  * A list of all LangScriptCodes supported by the translation engine
@@ -235,6 +236,21 @@ export const LANG_SCRIPT_CODES = [
  * The type of all supported `LangScriptCode`s
  */
 export type LangScriptCode = typeof LANG_SCRIPT_CODES[number];
+
+
+/**
+ * A list of all `LangCode`s
+ */
+export const LANG_CODES = [
+    ...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[0]))
+] as const as LangCode[]; // needs to be here, otherwise breaks definitions, cause this would be imported LANG_SCRIPT_CODES
+
+/**
+ * A list of all `ScriptCode`s
+ */
+export const SCRIPT_CODES = [
+  	...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[1]))
+] as const as ScriptCode[]; // needs to be here, otherwise breaks definitions, cause this would be imported LANG_SCRIPT_CODES
 
 /**
  * A utility function for converting a `LangCode` and a `ScriptCode` into a `LangScriptCode`
