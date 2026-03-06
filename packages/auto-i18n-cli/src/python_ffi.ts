@@ -7,7 +7,7 @@ import { logMessage, logWarning } from './utils.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const python_path = path.resolve(__dirname, "../../../translator/translate.py");
+const python_path = path.resolve(__dirname, "./translator/translate.py");
 
 export type ProgressUpdate = {
     current: number,

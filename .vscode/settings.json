@@ -20,6 +20,7 @@
         "NLLB",
         "Olck",
         "Orya",
+        "postbuild",
         "pydantic",
         "sentencepiece",
         "Taml",

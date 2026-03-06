@@ -108,6 +108,18 @@ export function getCurrentLocalRaw(): LangScriptCode
  * console.log(msg); // Hola!
  * ```
  * 
+ * ### **Escape Code**
+ * You can use double curly braces `{{...}}` to stop the translation engine from translating any text inside. The curly braces are removed after translation.
+ * ```ts
+ * import db from "./translations.json";
+ * setI18nDatabaseRaw(db);
+ * setCurrentLocalRaw("spa_Latn");
+ * 
+ * let msg = __t("message", "Hello there! this is a test message for the {{'react-auto-i18n'}} program.");
+ * 
+ * assert(msg === "Hola, este es un mensaje de prueba para el programa 'react-auto-i18n'.")
+ * ```
+ * 
  * @param key The key for the translation
  * @param message The message to be translated
  * @returns The translation of the message for the currently set locale.

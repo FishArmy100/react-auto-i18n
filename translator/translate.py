@@ -3,6 +3,7 @@ from transformers import AutoModelForSeq2SeqLM, NllbTokenizer
 from pydantic import BaseModel
 import json
 import io
+import re
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -19,7 +20,16 @@ def emit_progress(current: int, total: int, lang: str):
     print(json.dumps(progress, ensure_ascii=False), flush=True)
 
 
-def translate(segment: str, lang: str, src_lang, model, tokenizer) -> str:
+def translate(segment: str, lang: str, src_lang: str, model, tokenizer) -> str:
+    
+    protected = re.findall(r'\{\{.*?\}\}', segment)
+    placeholder_map: dict[str, str] = {}
+
+    for i, match in enumerate(protected):
+        token = f"__PLACEHOLDER_{i}__"
+        placeholder_map[token] = match 
+        segment = segment.replace(match, token, 1)
+
     tokenizer.src_lang = src_lang
     inputs = tokenizer(segment, return_tensors="pt")
     
@@ -32,7 +42,13 @@ def translate(segment: str, lang: str, src_lang, model, tokenizer) -> str:
         max_length=100
     )
 
-    translation = tokenizer.batch_decode(translated_tokens, skip_special_tokens=True)[0]
+    translation: str = tokenizer.batch_decode(translated_tokens, skip_special_tokens=True)[0]
+    
+    for token, original in placeholder_map.items():
+        end = len(original) - 2
+        r = original[2:end]
+        translation = translation.replace(token, r)
+
     return translation
 
 def main():
@@ -57,6 +73,7 @@ def main():
 
         ret.values[args.src_lang] = {}
         for k, s in args.segments.items():
+            s = re.sub(r"\{\{(.*?)\}\}", r"\1", s)
             ret.values[args.src_lang][k] = s
         
         print(json.dumps({"type": "result", **ret.model_dump()}, ensure_ascii=False))

@@ -8,7 +8,7 @@ export default function App(): React.ReactElement
 {
 	const i18n = useI18n();
 	const text = useMemo(() => {
-		return __t("main_message", "Hello there! this is a test message for the 'react-auto-i18n' program.")
+		return __t("main_message", "Hello there! this is a test message for the {{'react-auto-i18n'}} program.")
 	}, [i18n]);
 
 	let lang = i18n.getLocaleObj();

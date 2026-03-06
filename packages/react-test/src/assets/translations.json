@@ -1,9 +1,9 @@
 {
-  "spa_Latn": {
-    "main_message": "Hola, este es un mensaje de prueba para el programa \"reacto-auto-i18n\"."
-  },
   "fra_Latn": {
-    "main_message": "Bonjour, c'est un message de test pour le programme \"réaction automatique i18n\"."
+    "main_message": "Bonjour, c'est un message de test pour le programme 'react-auto-i18n'."
+  },
+  "spa_Latn": {
+    "main_message": "Hola, este es un mensaje de prueba para el programa 'react-auto-i18n'."
   },
   "swh_Latn": {
     "main_message": "Hi there! hii ni ujumbe mtihani kwa ajili ya programu 'react-auto-i18n'."
