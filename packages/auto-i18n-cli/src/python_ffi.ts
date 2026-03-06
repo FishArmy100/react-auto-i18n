@@ -22,7 +22,7 @@ export type TranslateArgs = {
 }
 
 export type TranslateResult = {
-    values: { [lang: string]: { [key: string]: string } }
+    values: { [lang: string]: { [key: string]: (string | string[]) } }
 }
 
 export async function runPython(

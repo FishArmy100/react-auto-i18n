@@ -28,7 +28,7 @@ export type I18nDatabase = Partial<Readonly<Record<LangScriptCode, LanguageTrans
 /**
  * A map that contains translations for all keys for a given language.
  */
-export type LanguageTranslations = Partial<Readonly<Record<string, string>>>
+export type LanguageTranslations = Partial<Readonly<Record<string, string | string[]>>>
 
 let currentLocale: LangScriptCode = "eng_Latn";
 let database: I18nDatabase = {}
@@ -126,17 +126,77 @@ export function getCurrentLocalRaw(): LangScriptCode
  */
 export function __t(key: string, message: string): string 
 {
-    return database[currentLocale]?.[key] ?? message
+    const translation = database[currentLocale]?.[key];
+    if (translation === undefined)
+    {
+        return message;
+    }
+    else if (typeof(translation) === "string")
+    {
+        return translation;
+    }
+    else 
+    {
+        return translation[0];
+    }
 }
 
-type TTArgs<F extends (...args: any[]) => boolean> = [...[string, F][], string]
-function __tt<F extends (...args: any[]) => boolean>(key: string, messages: TTArgs<F>, arg: Parameters<F>): string 
+export type TVArgs<T> = [...[string, (t: T) => boolean][], string]
+export function __tv<T extends { [k: string]: any | undefined }>(key: string, messages: TVArgs<T>, arg: T): string 
 {
-    return null as any;
+    const translated = inner_tv(key, messages, arg);
+    const regex = /\{\{\$(\w+)\}\}/;
+    
+    return translated.replaceAll(regex, (_, p1: string) => {
+        let a = arg[p1];
+        if (a === undefined)
+        {
+            return `{{$${p1}}}`
+        }
+        else 
+        {
+            return `${a}`;
+        }
+    });
 }
 
-const count: number = 0;
-const msg = __tt("main.message", [
-    ["Printing {{$arg0}} messages", (v) => v > 1],
-    "Printing 1 message"
-], [count]);
+function inner_tv<T extends { [k: string]: any }>(key: string, messages: TVArgs<T>, arg: T): string
+{
+    const translation = database[currentLocale]?.[key];
+    const index = selectIndex(messages, arg);
+
+    if (translation === undefined)
+    {
+        const msg = messages[index];
+        return typeof msg === "string" ? msg : msg[0]
+    }
+
+    if (typeof translation === "string") 
+    {
+        return translation;
+    }
+
+    return translation[index] ?? translation[translation.length - 1];
+}
+
+function selectIndex<T>(messages: TVArgs<T>, arg: T): number 
+{
+    for (let i = 0; i < messages.length - 1; i++) 
+    {
+        const m = messages[i];
+
+        if (typeof m !== "string") 
+        {
+            const [, predicate] = m;
+            if (predicate(arg)) return i;
+        }
+    }
+
+    return messages.length - 1;
+}
+
+const msg = __tv("test.message.v", [
+    ["You have one apple", ({count}) => count == 1],
+    ["You have {{$count}} apples", ({count}) => count > 1],
+    "You have no apples"
+], { count: 1})

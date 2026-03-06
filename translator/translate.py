@@ -13,7 +13,7 @@ class Args(BaseModel):
     langs: list[str]
 
 class Ret(BaseModel):
-    values: dict[str, dict[str, str]]
+    values: dict[str, dict[str, str | list[str]]]
 
 def emit_progress(current: int, total: int, lang: str):
     progress = { "type": "progress", "current": current, "total": total, "lang": lang }
