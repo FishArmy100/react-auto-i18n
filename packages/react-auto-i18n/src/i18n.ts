@@ -128,3 +128,15 @@ export function __t(key: string, message: string): string
 {
     return database[currentLocale]?.[key] ?? message
 }
+
+type TTArgs<F extends (...args: any[]) => boolean> = [...[string, F][], string]
+function __tt<F extends (...args: any[]) => boolean>(key: string, messages: TTArgs<F>, arg: Parameters<F>): string 
+{
+    return null as any;
+}
+
+const count: number = 0;
+const msg = __tt("main.message", [
+    ["Printing {{$arg0}} messages", (v) => v > 1],
+    "Printing 1 message"
+], [count]);
