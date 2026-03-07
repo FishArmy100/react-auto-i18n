@@ -1,26 +1,26 @@
 {
   "fra_Latn": {
-    "main_message": "Bonjour, ceci est un message de test pour le programme 'react-auto-i18n'.",
+    "main_message": "Bonjour ! Ceci est un message de test pour le programme 'react-auto-i18n'.",
     "test.message.v": [
-      "Vous avez une pomme.",
-      "Vous avez des pommes {{$count}}",
-      "Vous n'avez pas de pommes ."
+      "Tu as une pomme",
+      "Tu as {{$count}} pommes",
+      "Tu n’as pas de pommes"
     ]
   },
   "spa_Latn": {
-    "main_message": "Hola, este es un mensaje de prueba para el programa 'react-auto-i18n'.",
+    "main_message": "¡Hola! Este es un mensaje de prueba para el programa 'react-auto-i18n'.",
     "test.message.v": [
-      "Tienes una manzana.",
-      "Tienes manzanas {{$count}}",
-      "No tienes manzanas ."
+      "Tienes una manzana",
+      "Tienes {{$count}} manzanas",
+      "No tienes manzanas"
     ]
   },
   "swh_Latn": {
-    "main_message": "Hello huko! hii ni ujumbe wa mtihani kwa ajili ya programu 'react-auto-i18n'.",
+    "main_message": "Habari! Huu ni ujumbe wa majaribio kwa programu ya 'react-auto-i18n'.",
     "test.message.v": [
-      "Una tofaa moja",
-      "Una {{$count}} apples",
-      "Hamna mazao"
+      "Una apple moja",
+      "Una tufaha {{$count}}",
+      "Huna tufaha"
     ]
   },
   "eng_Latn": {
