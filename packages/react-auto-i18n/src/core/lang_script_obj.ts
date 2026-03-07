@@ -35,7 +35,7 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the english name for the wrapped `LangScriptCode`
+     * A helper function for getting the locale name for the wrapped `LangScriptCode`
      * @returns The `LangCode` for the wrapped `LangScriptCode`
      */
     public getName(): string | null
@@ -44,7 +44,7 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the local name for the wrapped `LangScriptCode`
+     * A helper function for getting the english name for the wrapped `LangScriptCode`
      * @returns The `LangCode` for the wrapped `LangScriptCode`
      */
     public getEnglishName(): string | null

@@ -1,34 +1,42 @@
 {
   "fra_Latn": {
-    "main_message": "Bonjour ! Ceci est un message de test pour le programme 'react-auto-i18n'.",
-    "test.message.v": [
-      "Tu as une pomme",
-      "Tu as {{$count}} pommes",
-      "Tu n’as pas de pommes"
+    "app.greeting": "Bonjour ! Bienvenue à la 'react-auto-i18n' présentation.",
+    "app.escape_on": "Cette bibliothèque s’appelle 'react-auto-i18n' — remarquez que le nom reste inchangé.",
+    "app.escape_off": "Cette bibliothèque s’appelle react-auto-i18n — ce nom sera également traduit.",
+    "app.apples": [
+      "Tu as une pomme.",
+      "Tu as {{$count}} pommes.",
+      "Tu n’as pas de pommes."
     ]
   },
   "spa_Latn": {
-    "main_message": "¡Hola! Este es un mensaje de prueba para el programa 'react-auto-i18n'.",
-    "test.message.v": [
-      "Tienes una manzana",
-      "Tienes {{$count}} manzanas",
-      "No tienes manzanas"
+    "app.greeting": "¡Hola! Bienvenidos a la 'react-auto-i18n' showcase.",
+    "app.escape_on": "Esta biblioteca se llama 'react-auto-i18n' — fíjate en que el nombre no cambia.",
+    "app.escape_off": "Esta biblioteca se llama react-auto-i18n — este nombre también se traducirá.",
+    "app.apples": [
+      "Tienes una manzana.",
+      "Tienes {{$count}} manzanas.",
+      "No tienes manzanas."
     ]
   },
   "swh_Latn": {
-    "main_message": "Habari! Huu ni ujumbe wa majaribio kwa programu ya 'react-auto-i18n'.",
-    "test.message.v": [
-      "Una apple moja",
-      "Una tufaha {{$count}}",
-      "Huna tufaha"
+    "app.greeting": "Habari! Karibu kwenye onyesho la 'react-auto-i18n'.",
+    "app.escape_on": "Maktaba hii inaitwa 'react-auto-i18n' - angalia jina halijabadilika.",
+    "app.escape_off": "Maktaba hii inaitwa react-auto-i18n - jina hili litatafsiriwa pia.",
+    "app.apples": [
+      "Una apple moja.",
+      "Una tufaha {{$count}}.",
+      "Huna tufaha."
     ]
   },
   "eng_Latn": {
-    "main_message": "Hello there! this is a test message for the 'react-auto-i18n' program.",
-    "test.message.v": [
-      "You have one apple",
-      "You have {{$count}} apples",
-      "You have no apples"
+    "app.greeting": "Hello! Welcome to the 'react-auto-i18n' showcase.",
+    "app.escape_on": "This library is called 'react-auto-i18n' — notice the name stays unchanged.",
+    "app.escape_off": "This library is called react-auto-i18n — this name will be translated too.",
+    "app.apples": [
+      "You have one apple.",
+      "You have {{$count}} apples.",
+      "You have no apples."
     ]
   }
 }

@@ -9,7 +9,10 @@
 	},
 	"scripts": {
 		"build": "tsup src/index.ts --format esm --dts",
-		"dev": "tsup src/index.ts --watch --format esm --dts"
+		"dev": "tsup src/index.ts --watch --format esm --dts",
+		"docs": "npx typedoc --plugin typedoc-plugin-markdown --out docs/md src",
+		"docs:pdf": "powershell -Command \"pandoc (Get-ChildItem docs/md -Recurse -Filter *.md | ForEach-Object {$_.FullName}) -o docs/documentation.pdf\"",
+		"docs:html": "npx typedoc --out docs/website src"
 	},
 	"files": [
 		"dist"
@@ -26,6 +29,8 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"tsup": "^8.5.1",
+		"typedoc": "^0.28.17",
+		"typedoc-plugin-markdown": "^4.10.0",
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {

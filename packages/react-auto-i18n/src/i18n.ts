@@ -84,17 +84,17 @@ export function getCurrentLocalRaw(): LangScriptCode
  * let msg = __t("message", "Hello!");
  * ```
  * Translation command:
- * `npx auto-i18n-cli -i "./file.ts" -o "./translations.json" -l spa_Latn -s eng_Latn`
+ * `npx auto-i18n-cli -i "./file.ts" -o "./translations.json" -l spa_Latn -s eng_Latn -b azure --azureKey "..."`
  * 
  * Outputs:
  * ```json
  * {
- *      "eng_Latn": {
- *          "message": "Hello!"
- *      },
- *      "spa_Latn": {
- *          "message": "Hola!"
- *      }
+ *     "eng_Latn": {
+ *         "message": "Hello!"
+ *     },
+ *     "spa_Latn": {
+ *         "message": "Hola!"
+ *     }
  * }
  * ```
  * 
@@ -168,6 +168,92 @@ function innerT(key: string, message: string): string
 }
 
 export type TVArgs<T> = [...[string, (t: T) => boolean][], string]
+
+/**
+ * The secondary translation function for this API. 
+ * When using `auto-i18n-cli` to parse the program and generate the database automatically, `key` must be a string literal and `messages` 
+ * must be an array literal, with the last argument being a string literal and all previous elements being an array literal with 
+ * a string literal as the first element.
+ * 
+ * The `auto-i18n-cli` looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
+ * 
+ * ### **Translation (using auto-i18n-cli):** 
+ * ```ts
+ * // file.ts
+ * const msg = __tv("test.message.v", [
+ *	  ["You have one apple", ({count}) => count == 1],
+ *	  ["You have {{$count}} apples", ({count}) => count > 1],
+ *	  "You have no apples"
+ * ], { count: appleCount })
+ * ```
+ * Translation command:
+ * `npx auto-i18n-cli -i "./file.ts" -o "./translations.json" -l spa_Latn -s eng_Latn -b azure --azureKey "..."`
+ * 
+ * Outputs:
+ * ```json
+ * {
+ *     "eng_Latn": {
+ *         "test.message.v": [
+ *             "You have one apple",
+ *             "You have {{$count}} apples",
+ *             "You have no apples"
+ *         ]
+ *     },
+ *     "spa_Latn": {
+ *          "test.message.v": [
+ *             "Tienes una manzana",
+ *             "Tienes {{$count}} manzanas",
+ *             "No tienes manzanas"
+ *         ]
+ *     }
+ * }
+ * ```
+ * 
+ * ### **Usage**
+ * ```ts
+ * import db from "./translations.json";
+ * setI18nDatabaseRaw(db);
+ * setCurrentLocalRaw("spa_Latn");
+ * 
+ * const appleCount = 5;
+ * 
+ * const msg = __tv("test.message.v", [
+ *	  ["You have one apple", ({count}) => count == 1],
+ *	  ["You have {{$count}} apples", ({count}) => count > 1],
+ *	  "You have no apples"
+ * ], { count: appleCount })
+ * 
+ * console.log(msg); // Tienes 5 manzanas!
+ * ```
+ * 
+ * ### **Escape Code**
+ * You can use double curly braces `{{...}}` to stop the translation engine from translating any text inside. 
+ * The curly braces are removed after translation. 
+ * If a `$` is placed before the text inside of the escape code, it is treated as a variable which values can be passed, 
+ * and incorporated into the text. 
+ * 
+ * **NOTE:** the passed arguments are **NOT** translated
+ * ```ts
+ * import db from "./translations.json";
+ * setI18nDatabaseRaw(db);
+ * setCurrentLocalRaw("spa_Latn");
+ * 
+ * const appleCount = 5;
+ * 
+ * const msg = __tv("test.message.v", [
+ *	  ["You have one apple", ({count}) => count == 1],
+ *	  ["You have {{$count}} apples", ({count}) => count > 1],
+ *	  "You have no apples"
+ * ], { count: appleCount })
+ * 
+ * console.log(msg); // Tienes 5 manzanas!
+ * ```
+ * 
+ * @param key The key for the translation
+ * @param messages An array of message variants
+ * @param arg A object that is passed as the argument to the selection functions and used for variable substitution
+ * @returns The translation of the message for the currently set locale.
+ */
 export function __tv<T extends { [k: string]: any | undefined }>(key: string, messages: TVArgs<T>, arg: T): string 
 {
     const translated = innerTv(key, messages, arg);
