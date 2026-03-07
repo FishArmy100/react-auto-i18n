@@ -27,9 +27,9 @@ export default function App(): React.ReactElement
 		<Box sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
 			<Typography>
 				{`Selected Locale: ${lang.getLangCode()}`}
+				&nbsp;
 				{lang.getCountryFlag()}
 			</Typography>
-			&nbsp;
 			<Typography>
 				{text}
 			</Typography>
