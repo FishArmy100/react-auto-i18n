@@ -124,7 +124,33 @@ export function getCurrentLocalRaw(): LangScriptCode
  * @param message The message to be translated
  * @returns The translation of the message for the currently set locale.
  */
-export function __t(key: string, message: string): string 
+export function __t<T extends { [k: string]: any | undefined }>(key: string, message: string, arg?: T): string 
+{
+    const translated = innerT(key, message);
+
+    if (arg !== undefined)
+    {
+            const regex = /\{\{\$(\w+)\}\}/g;
+    
+        return translated.replaceAll(regex, (_, p1: string) => {
+            let a = arg[p1];
+            if (a === undefined)
+            {
+                return `{{$${p1}}}`
+            }
+            else 
+            {
+                return `${a}`;
+            }
+        });
+    }
+    else 
+    {
+        return translated;
+    }
+}
+
+function innerT(key: string, message: string): string 
 {
     const translation = database[currentLocale]?.[key];
     if (translation === undefined)
@@ -144,8 +170,8 @@ export function __t(key: string, message: string): string
 export type TVArgs<T> = [...[string, (t: T) => boolean][], string]
 export function __tv<T extends { [k: string]: any | undefined }>(key: string, messages: TVArgs<T>, arg: T): string 
 {
-    const translated = inner_tv(key, messages, arg);
-    const regex = /\{\{\$(\w+)\}\}/;
+    const translated = innerTv(key, messages, arg);
+    const regex = /\{\{\$(\w+)\}\}/g;
     
     return translated.replaceAll(regex, (_, p1: string) => {
         let a = arg[p1];
@@ -160,7 +186,7 @@ export function __tv<T extends { [k: string]: any | undefined }>(key: string, me
     });
 }
 
-function inner_tv<T extends { [k: string]: any }>(key: string, messages: TVArgs<T>, arg: T): string
+function innerTv<T extends { [k: string]: any }>(key: string, messages: TVArgs<T>, arg: T): string
 {
     const translation = database[currentLocale]?.[key];
     const index = selectIndex(messages, arg);
@@ -194,9 +220,3 @@ function selectIndex<T>(messages: TVArgs<T>, arg: T): number
 
     return messages.length - 1;
 }
-
-const msg = __tv("test.message.v", [
-    ["You have one apple", ({count}) => count == 1],
-    ["You have {{$count}} apples", ({count}) => count > 1],
-    "You have no apples"
-], { count: 1})

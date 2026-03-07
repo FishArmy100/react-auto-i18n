@@ -11,12 +11,15 @@ import chalk from "chalk";
 import { logError, logMessage } from "./utils.js";
 import { SingleBar } from "cli-progress"
 
+const DEFAULT_MAX_TOKENS: number = 250;
+
 type ProgramOptions = {
 	languages?: string[],
 	input: string,
 	out?: string,
 	sourceLang?: string,
 	help?: boolean,
+	maxTokens?: number,
 }
 
 async function main() 
@@ -49,6 +52,12 @@ async function main()
 					alias: 's', 
 					optional: true, 
 					description: 'The source language that all __t use. Defaults to English' 
+				},
+				maxTokens: {
+					type: Number,
+					alias: 't',
+					optional: true,
+					description: `The maximum number of tokens. Defaults to ${DEFAULT_MAX_TOKENS}`
 				},
 				help: { 
 					type: Boolean, 
@@ -97,16 +106,17 @@ async function runWithOptions(options: ProgramOptions)
 
 	const segments = Object.values(result.value)
 		.filter(v => v !== undefined)
-		.reduce((acc: { [key: string]: string; }, v) => { 
+		.reduce((acc: { [key: string]: (string | string[]); }, v) => { 
 			acc[v.key] = v.message; 
 			return acc; 
 		}, {});
 
 	logMessage("Translating...");
-	await generateFiles({
+	await generateTranslationFile({
 		src_lang: source_lang,
 		segments,
 		langs,
+		max_tokens: options.maxTokens ?? DEFAULT_MAX_TOKENS
 	}, output);
 
 	const fullOutPath = path.resolve(output);
@@ -149,12 +159,17 @@ function validateProgramOptions(options: ProgramOptions): { langs: LanguageCode[
 		source_lang = code;
 	}
 
+	if (options.maxTokens !== undefined && options.maxTokens < 100)
+	{
+		logError(`Error: maxTokens cannot be less than 100`);
+	}
+
 	const output = options.out ?? "out.json";
 
 	return { langs, input: inputPath, output, source_lang }
 }
 
-async function generateFiles(args: TranslateArgs, out: string)
+async function generateTranslationFile(args: TranslateArgs, out: string)
 {	
 	const bar = new SingleBar({
 		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || ETA: {eta_formatted}`),

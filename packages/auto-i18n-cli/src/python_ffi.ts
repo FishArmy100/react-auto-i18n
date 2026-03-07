@@ -16,9 +16,10 @@ export type ProgressUpdate = {
 }
 
 export type TranslateArgs = {
-    segments: { [i: string]: string }
+    segments: { [i: string]: (string | string[]) }
     langs: LanguageCode[],
     src_lang: LanguageCode,
+    max_tokens: number,
 }
 
 export type TranslateResult = {
