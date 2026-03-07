@@ -15,14 +15,29 @@ export type ProgressUpdate = {
     lang: string,
 }
 
-export type TranslateArgs = {
-    segments: { [i: string]: string }
+type TranslateArgsBase = {
+    segments: { [i: string]: (string | string[]) }
     langs: LanguageCode[],
     src_lang: LanguageCode,
+    max_tokens: number,
 }
 
+export type NllbArgs = TranslateArgsBase & {
+    backend: "nllb",
+    nllb_model?: string,
+}
+
+export type AzureArgs = TranslateArgsBase & {
+    backend: "azure",
+    azure_key: string,
+    azure_region?: string,
+    azure_endpoint?: string,
+}
+
+export type TranslateArgs = NllbArgs | AzureArgs;
+
 export type TranslateResult = {
-    values: { [lang: string]: { [key: string]: string } }
+    values: { [lang: string]: { [key: string]: (string | string[]) } }
 }
 
 export async function runPython(
@@ -40,7 +55,7 @@ export async function runPython(
             encoding: "utf-8",
         });
 
-        logMessage(`Running ${python_path}...`)
+        logMessage(`Running ${python_path} with backend: ${args.backend}...`)
 
         shell.on("message", (raw: string) => {
             try 

@@ -4,7 +4,7 @@ import ts from "typescript";
 
 export type FoundTranslation = {
     key: string,
-    message: string,
+    message: string | string[],
 }
 
 export type ParsedResult = |{
@@ -142,11 +142,11 @@ export function findTCalls(node: ts.Node, file: ts.SourceFile): FoundCallsResult
 
         if (ts.isIdentifier(expression) && expression.text === "__t")
         {
-            if (node.arguments.length != 2)
+            if (node.arguments.length != 2 && node.arguments.length !== 3)
             {
                 return {
                     type: "error",
-                    message: `__t calls must have two arguments`,
+                    message: `__t calls must have 2-3 arguments`,
                     start: file.getLineAndCharacterOfPosition(expression.getStart()),
                     end: file.getLineAndCharacterOfPosition(expression.getEnd())
                 }
@@ -181,6 +181,108 @@ export function findTCalls(node: ts.Node, file: ts.SourceFile): FoundCallsResult
                     translation: {
                         key: arg1.text,
                         message: arg2.text,
+                    },
+                    idStart: file.getLineAndCharacterOfPosition(arg1.getStart()),
+                    idEnd: file.getLineAndCharacterOfPosition(arg1.getEnd())
+                }],
+            }
+        }
+        else if (ts.isIdentifier(expression) && expression.text === "__tv")
+        {
+            if (node.arguments.length != 3)
+            {
+                return {
+                    type: "error",
+                    message: `__t calls must have 2-3 arguments`,
+                    start: file.getLineAndCharacterOfPosition(expression.getStart()),
+                    end: file.getLineAndCharacterOfPosition(expression.getEnd())
+                }
+            }
+
+            const arg1 = node.arguments[0];
+            const arg2 = node.arguments[1];
+
+            if (!ts.isStringLiteral(arg1))
+            {
+                return {
+                    type: "error",
+                    message: `arg1 is not a string literal`,
+                    start: file.getLineAndCharacterOfPosition(arg1.getStart()),
+                    end: file.getLineAndCharacterOfPosition(arg1.getEnd())
+                }
+            }
+
+            if (!ts.isArrayLiteralExpression(arg2))
+            {
+                return {
+                    type: "error",
+                    message: `arg2 is not a array literal`,
+                    start: file.getLineAndCharacterOfPosition(arg2.getStart()),
+                    end: file.getLineAndCharacterOfPosition(arg2.getEnd())
+                }
+            }
+
+            const variants: string[] = [];
+            for(let i = 0; i < arg2.elements.length; i++) 
+            {
+                let variant = arg2.elements[i];
+                if (i >= arg2.elements.length - 1)
+                {
+                    if (!ts.isStringLiteral(variant))
+                    {
+                        return {
+                            type: "error",
+                            message: `The last element of the arg2 array must be an array literal`,
+                            start: file.getLineAndCharacterOfPosition(arg1.getStart()),
+                            end: file.getLineAndCharacterOfPosition(arg1.getEnd())
+                        }
+                    }
+
+                    variants.push(variant.text)
+                }
+                else 
+                {
+                    if (!ts.isArrayLiteralExpression(variant))
+                    {
+                        return {
+                            type: "error",
+                            message: `This expression must be a array tuple literal`,
+                            start: file.getLineAndCharacterOfPosition(variant.getStart()),
+                            end: file.getLineAndCharacterOfPosition(variant.getEnd())
+                        }
+                    }
+
+                    if (variant.elements.length !== 2)
+                    {
+                        return {
+                            type: "error",
+                            message: `This array tuple literal must be of length 2`,
+                            start: file.getLineAndCharacterOfPosition(variant.getStart()),
+                            end: file.getLineAndCharacterOfPosition(variant.getEnd())
+                        }
+                    }
+
+                    const message = variant.elements[0];
+                    if (!ts.isStringLiteral(message))
+                    {
+                        return {
+                            type: "error",
+                            message: `This expression must be a string literal`,
+                            start: file.getLineAndCharacterOfPosition(message.getStart()),
+                            end: file.getLineAndCharacterOfPosition(message.getEnd())
+                        }
+                    }
+                    
+                    variants.push(message.text)
+                }
+            }
+
+            return {
+                type: "ok",
+                translations: [{
+                    translation: {
+                        key: arg1.text,
+                        message: variants,
                     },
                     idStart: file.getLineAndCharacterOfPosition(arg1.getStart()),
                     idEnd: file.getLineAndCharacterOfPosition(arg1.getEnd())

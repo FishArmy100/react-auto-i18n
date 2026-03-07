@@ -2,3 +2,4 @@ pydantic
 transformers
 torch
 sentencepiece
+requests

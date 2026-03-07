@@ -5,11 +5,13 @@ import { parse } from 'ts-command-line-args';
 import * as fs from 'fs';
 import * as path from 'path';
 import pkg from "../package.json" with { type: 'json' }
-import { LanguageCode, stringToLanguageCode } from "./langs.js";
+import { LanguageCode, nllbToAzure, stringToLanguageCode } from "./langs.js";
 import { parseTSFiles } from "./parser.js";
 import chalk from "chalk";
 import { logError, logMessage } from "./utils.js";
 import { SingleBar } from "cli-progress"
+
+const DEFAULT_MAX_TOKENS: number = 250;
 
 type ProgramOptions = {
 	languages?: string[],
@@ -17,6 +19,12 @@ type ProgramOptions = {
 	out?: string,
 	sourceLang?: string,
 	help?: boolean,
+	maxTokens?: number,
+	backend: string,
+	azureKey?: string,
+	azureRegion?: string,
+	azureEndpoint?: string,
+	nllbModel?: string,
 }
 
 async function main() 
@@ -50,6 +58,37 @@ async function main()
 					optional: true, 
 					description: 'The source language that all __t use. Defaults to English' 
 				},
+				maxTokens: {
+					type: Number,
+					alias: 't',
+					optional: true,
+					description: `The maximum number of tokens. Defaults to ${DEFAULT_MAX_TOKENS}`
+				},
+				backend: {
+					type: String,
+					alias: 'b',
+					description: 'Translation backend to use: "nllb" or "azure"',
+				},
+				azureKey: {
+					type: String,
+					optional: true,
+					description: 'Azure Translator API key (required when backend is "azure")',
+				},
+				azureRegion: {
+					type: String,
+					optional: true,
+					description: 'Azure Translator region (default: eastus)',
+				},
+				azureEndpoint: {
+					type: String,
+					optional: true,
+					description: 'Azure Translator endpoint URL',
+				},
+				nllbModel: {
+					type: String,
+					optional: true,
+					description: 'NLLB model name (default: facebook/nllb-200-distilled-1.3B)',
+				},
 				help: { 
 					type: Boolean, 
 					optional: true, 
@@ -75,7 +114,6 @@ async function main()
 		return;
 	}
 
-
 	runWithOptions(options)
 }
 
@@ -85,7 +123,7 @@ async function runWithOptions(options: ProgramOptions)
 	const validated = validateProgramOptions(options);
 	if (!validated) return;
 
-	const { langs, input, output, source_lang } = validated;
+	const { input, output, translateArgs } = validated;
 
 	logMessage("Parsing TS files...")
 	const result = await parseTSFiles(input);
@@ -97,28 +135,38 @@ async function runWithOptions(options: ProgramOptions)
 
 	const segments = Object.values(result.value)
 		.filter(v => v !== undefined)
-		.reduce((acc: { [key: string]: string; }, v) => { 
+		.reduce((acc: { [key: string]: (string | string[]); }, v) => { 
 			acc[v.key] = v.message; 
 			return acc; 
 		}, {});
 
+	translateArgs.segments = segments;
+
 	logMessage("Translating...");
-	await generateFiles({
-		src_lang: source_lang,
-		segments,
-		langs,
-	}, output);
+	await generateTranslationFile(translateArgs, output);
 
 	const fullOutPath = path.resolve(output);
 	logMessage(`Extraction & Translation complete! Translations located at: ${fullOutPath}`);
 }
 
-function validateProgramOptions(options: ProgramOptions): { langs: LanguageCode[], input: string, output: string, source_lang: LanguageCode } | null
+type ValidatedOptions = {
+	input: string,
+	output: string,
+	translateArgs: TranslateArgs,
+}
+
+function validateProgramOptions(options: ProgramOptions): ValidatedOptions | null
 {
 	const inputPath = path.resolve(options.input);
 	if (!fs.existsSync(inputPath))
 	{
 		logError(`Error: file path '${chalk.bold(inputPath)}' does not exist`);
+		return null;
+	}
+
+	if (options.backend !== "nllb" && options.backend !== "azure")
+	{
+		logError(`Error: backend must be ${chalk.bold("nllb")} or ${chalk.bold("azure")}`);
 		return null;
 	}
 
@@ -133,10 +181,16 @@ function validateProgramOptions(options: ProgramOptions): { langs: LanguageCode[
 			return null;
 		}
 
+		if (options.backend === "azure" && nllbToAzure(code) === null)
+		{
+			logError(`Error: language code ${chalk.bold(lang)} has no Azure equivalent`);
+			return null;
+		}
+
 		langs.push(code);
 	}
 
-	let source_lang: LanguageCode = "eng_Latn";
+	let src_lang: LanguageCode = "eng_Latn";
 	if (options.sourceLang)
 	{
 		const code = stringToLanguageCode(options.sourceLang);
@@ -146,15 +200,59 @@ function validateProgramOptions(options: ProgramOptions): { langs: LanguageCode[
 			return null;
 		}
 
-		source_lang = code;
+		src_lang = code;
+	}
+
+	let max_tokens = options.maxTokens;
+	if (max_tokens === undefined)
+	{
+		max_tokens = DEFAULT_MAX_TOKENS;
+	}
+
+	if (max_tokens < 100)
+	{
+		logError(`Error: maxTokens cannot be less than 100`);
+		return null;
+	}
+
+	let translateArgs: TranslateArgs;
+	if (options.backend === "azure")
+	{
+		if (!options.azureKey)
+		{
+			logError(`Error: ${chalk.bold("--azureKey")} is required when using the Azure backend`);
+			return null;
+		}
+		
+		translateArgs = {
+			langs,
+			src_lang,
+			segments: {},
+			max_tokens,
+			backend: "azure",
+			azure_key: options.azureKey,
+			...(options.azureRegion && { azure_region: options.azureRegion }),
+			...(options.azureEndpoint && { azure_endpoint: options.azureEndpoint }),
+		};
+	}
+	else
+	{
+		translateArgs = {
+			langs,
+			src_lang,
+			segments: {},
+			max_tokens,
+			backend: "nllb",
+			...(options.nllbModel && { nllb_model: options.nllbModel }),
+		};
 	}
 
 	const output = options.out ?? "out.json";
 
-	return { langs, input: inputPath, output, source_lang }
+	return { input: inputPath, output, translateArgs }
 }
 
-async function generateFiles(args: TranslateArgs, out: string)
+async function generateTranslationFile(args: TranslateArgs, out: string)
 {	
 	const bar = new SingleBar({
 		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || ETA: {eta_formatted}`),
