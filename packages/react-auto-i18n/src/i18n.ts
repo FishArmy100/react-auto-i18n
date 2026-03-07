@@ -130,7 +130,7 @@ export function __t<T extends { [k: string]: any | undefined }>(key: string, mes
 
     if (arg !== undefined)
     {
-            const regex = /\{\{\$(\w+)\}\}/g;
+        const regex = /\{\{\$(\w+)\}\}/g;
     
         return translated.replaceAll(regex, (_, p1: string) => {
             let a = arg[p1];

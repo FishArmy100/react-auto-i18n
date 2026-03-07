@@ -29,6 +29,7 @@ export default function App(): React.ReactElement
 				{`Selected Locale: ${lang.getLangCode()}`}
 				{lang.getCountryFlag()}
 			</Typography>
+			&nbsp;
 			<Typography>
 				{text}
 			</Typography>
