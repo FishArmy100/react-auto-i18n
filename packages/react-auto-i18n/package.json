@@ -10,7 +10,8 @@
 	"scripts": {
 		"build": "tsup src/index.ts --format esm --dts",
 		"dev": "tsup src/index.ts --watch --format esm --dts",
-		"docs": "npx typedoc --plugin typedoc-plugin-markdown --out docs/md src",
+		"docs": "npm run docs:md && npm run docs:pdf && npm run docs:html",
+		"docs:md": "npx typedoc --plugin typedoc-plugin-markdown --out docs/md src",
 		"docs:pdf": "powershell -Command \"pandoc (Get-ChildItem docs/md -Recurse -Filter *.md | ForEach-Object {$_.FullName}) -o docs/documentation.pdf\"",
 		"docs:html": "npx typedoc --out docs/website src"
 	},

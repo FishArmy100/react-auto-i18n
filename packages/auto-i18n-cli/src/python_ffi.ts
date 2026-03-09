@@ -49,6 +49,10 @@ export async function runPython(
 
     return new Promise((resolve, reject) => {
 
+        let settled = false;
+        const safeResolve = (val: TranslateResult) => { if (!settled) { settled = true; resolve(val); } };
+        const safeReject = (err: unknown) => { if (!settled) { settled = true; reject(err); } };
+
         logMessage("Loading Python shell...")
         const shell = new PythonShell(python_path, {
             args: [converted],
@@ -67,11 +71,11 @@ export async function runPython(
                 }
                 else if (msg.type === "result")
                 {
-                    resolve({ values: msg.values })
+                    safeResolve({ values: msg.values })
                 }
                 else if (msg.type === "error")
                 {
-                    reject(new Error(msg.message))
+                    safeReject(new Error(msg.message))
                 }
                 else 
                 {
@@ -83,8 +87,9 @@ export async function runPython(
                 logWarning(`Unparsable message from python`);
             }
 
-            shell.on("error", reject)
-            shell.end(err => { if (err) reject(err) })
         })
+        
+        shell.on("error", safeReject)
+        shell.end(err => { if (err) safeReject(err) })
     })
 }

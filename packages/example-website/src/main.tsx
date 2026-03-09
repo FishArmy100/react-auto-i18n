@@ -7,8 +7,8 @@ import db from "./assets/translations.json";
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<I18nProvider 
-			default_lang="eng_Latn" 
-			default_database={db}
+			defaultLang="eng_Latn" 
+			defaultDatabase={db}
 		>
 			<App />
 		</I18nProvider>

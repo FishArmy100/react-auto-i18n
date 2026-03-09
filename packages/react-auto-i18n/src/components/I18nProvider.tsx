@@ -55,13 +55,13 @@ export type I18nProviderProps = {
     /**
      * The default language code. When passed to the `I18nProvider`, defaults to `"eng_Latn"`
      */
-    default_lang: LangScriptCode,
+    defaultLang: LangScriptCode,
 
     
     /**
      * The default database. When passed to the `I18nProvider`, defaults to `{}`
      */
-    default_database: I18nDatabase,
+    defaultDatabase: I18nDatabase,
 }
 
 /**
@@ -90,17 +90,18 @@ export type I18nProviderProps = {
  */
 export function I18nProvider({
     children,
-    default_lang = "eng_Latn",
-    default_database = {},
+    defaultLang = "eng_Latn",
+    defaultDatabase = {},
 }: I18nProviderProps): React.ReactElement
 {
-    const [localeState, setLocaleState] = useState<LangScriptCode>(default_lang);
-    const [databaseState, setDatabaseState] = useState<I18nDatabase>(default_database);
-
-    useEffect(() => {
-        setCurrentLocalRaw(default_lang)
-        setI18nDatabaseRaw(default_database);
-    }, [])
+    const [localeState, setLocaleState] = useState<LangScriptCode>(() => {
+        setCurrentLocalRaw(defaultLang);
+        return defaultLang;
+    });
+    const [databaseState, setDatabaseState] = useState<I18nDatabase>(() => {
+        setI18nDatabaseRaw(defaultDatabase);
+        return defaultDatabase;
+    });
 
     const setLocale = (locale: LangScriptCode) => {
         setCurrentLocalRaw(locale);

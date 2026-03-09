@@ -1,0 +1,254 @@
+{
+  "spa_Latn": {
+    "heading": "¡Bienvenido a la demo de traducción!",
+    "subheading": "Esta app muestra la biblioteca de 'react-auto-i18n'.",
+    "locale.title": "Local actual",
+    "switch.title": "Lenguaje de conmutación",
+    "counter.title": "Contador de manzanas",
+    "examples.title": "Ejemplos de código",
+    "btn.liked": "¡Te ha gustado! ❤️",
+    "btn.like": "Como esta demo ♡",
+    "footer.note": "Todo el texto de esta página se traduce automáticamente.",
+    "apples.count": [
+      "Tienes una manzana 🍎",
+      "Tienes {{$count}} manzanas 🍎",
+      "No tienes manzanas 🍏"
+    ],
+    "apples.prompt": [
+      "¡Eso son muchas manzanas!",
+      "¡Sigue!",
+      "Añade algunas manzanas abajo."
+    ]
+  },
+  "fra_Latn": {
+    "heading": "Bienvenue dans la démo de traduction !",
+    "subheading": "Cette application met en avant la bibliothèque 'react-auto-i18n'.",
+    "locale.title": "Équipe locale actuelle",
+    "switch.title": "Changer de langage",
+    "counter.title": "Compteur Apple",
+    "examples.title": "Exemples de code",
+    "btn.liked": "Tu as aimé ça ! ❤️",
+    "btn.like": "Comme cette démo ♡",
+    "footer.note": "Tout le texte de cette page est traduit automatiquement.",
+    "apples.count": [
+      "Tu as une pomme 🍎",
+      "Tu as {{$count}} pommes 🍎",
+      "Tu n’as pas de 🍏 pommes"
+    ],
+    "apples.prompt": [
+      "Ça fait beaucoup de pommes !",
+      "Continue !",
+      "Ajoutez quelques pommes ci-dessous."
+    ]
+  },
+  "deu_Latn": {
+    "heading": "Willkommen zur Übersetzungsdemo!",
+    "subheading": "Diese App zeigt die 'react-auto-i18n' Bibliothek.",
+    "locale.title": "Aktueller Local",
+    "switch.title": "Switch-Sprache",
+    "counter.title": "Apple Counter",
+    "examples.title": "Codebeispiele",
+    "btn.liked": "Das hat dir gefallen! ❤️",
+    "btn.like": "Wie diese Demo ♡",
+    "footer.note": "Der gesamte Text auf dieser Seite wird automatisch übersetzt.",
+    "apples.count": [
+      "Du hast einen Apfel. 🍎",
+      "Du hast {{$count}} Äpfel 🍎",
+      "Du hast keine Äpfel 🍏"
+    ],
+    "apples.prompt": [
+      "Das sind viele Äpfel!",
+      "Mach weiter!",
+      "Füge unten ein paar Äpfel hinzu."
+    ]
+  },
+  "cmn_Hans": {
+    "heading": "欢迎来到翻译演示！",
+    "subheading": "这个应用展示了'react-auto-i18n'图书馆。",
+    "locale.title": "现今地方分会",
+    "switch.title": "切换语言",
+    "counter.title": "苹果计数器",
+    "examples.title": "代码示例",
+    "btn.liked": "你喜欢这个！❤️",
+    "btn.like": "比如这个演示 ♡",
+    "footer.note": "本页所有文字均为自动翻译。",
+    "apples.count": [
+      "你只有一个苹果 🍎",
+      "你有{{$count}}苹果 🍎",
+      "你没有苹果 🍏"
+    ],
+    "apples.prompt": [
+      "苹果真多！",
+      "继续！",
+      "下面加一些苹果。"
+    ]
+  },
+  "jpn_Jpan": {
+    "heading": "翻訳デモへようこそ!",
+    "subheading": "このアプリは'react-auto-i18n'ライブラリを紹介しています。",
+    "locale.title": "現在のローカル",
+    "switch.title": "スイッチ言語",
+    "counter.title": "アップルカウンター",
+    "examples.title": "コード例",
+    "btn.liked": "気に入ったんだね!❤️",
+    "btn.like": "このデモ♡をおすすめします",
+    "footer.note": "このページのすべてのテキストは自動翻訳されています。",
+    "apples.count": [
+      "リンゴ🍎は一つだけ",
+      "リンゴ🍎は{{$count}}つある",
+      "リンゴ🍏がない"
+    ],
+    "apples.prompt": [
+      "たくさんのリンゴだ!",
+      "続けろ!",
+      "下にリンゴを加えてください。"
+    ]
+  },
+  "arb_Arab": {
+    "heading": "مرحبا بكم في عرض الترجمة!",
+    "subheading": "يعرض هذا التطبيق مكتبة 'react-auto-i18n'.",
+    "locale.title": "الفرع المحلي الحالي",
+    "switch.title": "لغة التبديل",
+    "counter.title": "عداد التفاح",
+    "examples.title": "أمثلة على الشيفرة",
+    "btn.liked": "أعجبك هذا! ❤️",
+    "btn.like": "مثل هذا العرض التجريبي ♡",
+    "footer.note": "يتم ترجمة جميع النصوص في هذه الصفحة تلقائيا.",
+    "apples.count": [
+      "لديك تفاحة 🍎 واحدة",
+      "لديك {{$count}} التفاح 🍎",
+      "ليس لديك تفاحات 🍏"
+    ],
+    "apples.prompt": [
+      "هذا عدد كبير من التفاح!",
+      "استمر!",
+      "أضف بعض التفاح أدناه."
+    ]
+  },
+  "hin_Deva": {
+    "heading": "अनुवाद डेमो में आपका स्वागत है!",
+    "subheading": "यह ऐप 'react-auto-i18n' लाइब्रेरी को प्रदर्शित करता है।",
+    "locale.title": "वर्तमान स्थानीय",
+    "switch.title": "भाषा स्विच करें",
+    "counter.title": "एप्पल काउंटर",
+    "examples.title": "कोड उदाहरण",
+    "btn.liked": "आपको यह पसंद आया! ❤️",
+    "btn.like": "इस डेमो ♡ को पसंद करें",
+    "footer.note": "इस पृष्ठ पर सभी पाठ स्वचालित रूप से अनुवादित हो जाते हैं।",
+    "apples.count": [
+      "आपके पास एक सेब 🍎 है",
+      "आपके पास {{$count}} सेब 🍎 हैं",
+      "आपके पास कोई सेब 🍏 नहीं है"
+    ],
+    "apples.prompt": [
+      "यह बहुत सारे सेब हैं!",
+      "जारी रखो!",
+      "नीचे कुछ सेब डालें।"
+    ]
+  },
+  "rus_Cyrl": {
+    "heading": "Добро пожаловать на демонстрацию перевода!",
+    "subheading": "Это приложение демонстрирует библиотеку 'react-auto-i18n'.",
+    "locale.title": "Текущий местный",
+    "switch.title": "Язык коммутаторов",
+    "counter.title": "Apple Counter",
+    "examples.title": "Примеры кодов",
+    "btn.liked": "Тебе это понравилось! ❤️",
+    "btn.like": "Как это демо ♡",
+    "footer.note": "Весь текст на этой странице переводится автоматически.",
+    "apples.count": [
+      "У тебя одно яблоко 🍎",
+      "У тебя {{$count}} яблок 🍎",
+      "У тебя нет яблок 🍏"
+    ],
+    "apples.prompt": [
+      "Это много яблок!",
+      "Продолжай!",
+      "Добавьте немного яблок ниже."
+    ]
+  },
+  "por_Latn": {
+    "heading": "Bem-vindo à demonstração de tradução!",
+    "subheading": "Este aplicativo mostra a biblioteca 'react-auto-i18n'.",
+    "locale.title": "Local Atual",
+    "switch.title": "Linguagem Switch",
+    "counter.title": "Contador de Maçãs",
+    "examples.title": "Exemplos de Código",
+    "btn.liked": "Você gostou disso! ❤️",
+    "btn.like": "Como essa demo ♡",
+    "footer.note": "Todo o texto desta página é traduzido automaticamente.",
+    "apples.count": [
+      "Você tem uma maçã 🍎",
+      "Você tem {{$count}} maçãs 🍎",
+      "Você não tem maçãs 🍏"
+    ],
+    "apples.prompt": [
+      "São muitas maçãs!",
+      "Continue!",
+      "Adicione algumas maçãs abaixo."
+    ]
+  },
+  "kor_Hang": {
+    "heading": "번역 데모에 오신 것을 환영합니다!",
+    "subheading": "이 앱은 'react-auto-i18n' 라이브러리를 보여줍니다.",
+    "locale.title": "현재 지역 지부",
+    "switch.title": "스위치 언어",
+    "counter.title": "애플 카운터",
+    "examples.title": "코드 예시",
+    "btn.liked": "마음에 드셨어요! ❤️",
+    "btn.like": "이 데모♡처럼",
+    "footer.note": "이 페이지의 모든 텍스트는 자동으로 번역됩니다.",
+    "apples.count": [
+      "사과 🍎 하나 있어요",
+      "사과🍎가 {{$count}} 개 있네",
+      "사과🍏가 없네"
+    ],
+    "apples.prompt": [
+      "사과가 엄청 많네요!",
+      "계속 가!",
+      "아래에 사과를 추가하세요."
+    ]
+  },
+  "swh_Latn": {
+    "heading": "Karibu kwenye onyesho la tafsiri!",
+    "subheading": "Programu hii inaonyesha maktaba ya 'react-auto-i18n'.",
+    "locale.title": "Mitaa ya sasa",
+    "switch.title": "Badilisha lugha",
+    "counter.title": "Kaunta ya Apple",
+    "examples.title": "Mifano ya Nambari",
+    "btn.liked": "Ulipenda hii! ❤️",
+    "btn.like": "Kama onyesho ♡ hili",
+    "footer.note": "Maandishi yote kwenye ukurasa huu yanatafsiriwa kiotomatiki.",
+    "apples.count": [
+      "Una apple 🍎 moja",
+      "Una tufaha 🍎 {{$count}}",
+      "Huna tufaha 🍏"
+    ],
+    "apples.prompt": [
+      "Hiyo ni tufaha nyingi!",
+      "Endelea!",
+      "Ongeza maapulo hapa chini."
+    ]
+  },
+  "eng_Latn": {
+    "heading": "Welcome to the translation demo!",
+    "subheading": "This app showcases the 'react-auto-i18n' library.",
+    "locale.title": "Current Locale",
+    "switch.title": "Switch Language",
+    "counter.title": "Apple Counter",
+    "examples.title": "Code Examples",
+    "btn.liked": "You liked this! ❤️",
+    "btn.like": "Like this demo ♡",
+    "footer.note": "All text on this page is translated automatically.",
+    "apples.count": [
+      "You have one apple 🍎",
+      "You have {{$count}} apples 🍎",
+      "You have no apples 🍏"
+    ],
+    "apples.prompt": [
+      "That's a lot of apples!",
+      "Keep going!",
+      "Add some apples below."
+    ]
+  }
+}

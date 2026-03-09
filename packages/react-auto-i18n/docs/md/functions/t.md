@@ -8,7 +8,7 @@
 
 > **\_\_t**\<`T`\>(`key`, `message`, `arg?`): `string`
 
-Defined in: [i18n.ts:127](https://github.com/FishArmy100/react-auto-i18n/blob/853437e567b319054ebcb28f0a68584148d2ff61/packages/react-auto-i18n/src/i18n.ts#L127)
+Defined in: [i18n.ts:127](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/i18n.ts#L127)
 
 The primary translation function for this API. 
 When using `auto-i18n-cli` to parse the program and generate the database automatically, both arguments must be raw string literals.
