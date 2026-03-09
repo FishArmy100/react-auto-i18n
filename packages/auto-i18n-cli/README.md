@@ -2,6 +2,8 @@
 
 A command-line tool for automatically generating translation databases for use with the [`react-auto-i18n`](https://github.com/your-org/react-auto-i18n) library. It scans your TypeScript source files for all `__t()` and `__tv()` calls and produces a JSON translation database.
 
+**NOTE:** You must have a compatible version of python installed `^3.12`
+
 ---
 
 ## Installation
@@ -24,7 +26,7 @@ npx auto-i18n-cli [options]
 auto-i18n-cli -i <input> -b <backend> [options]
 ```
 
-### Example — Azure backend
+### Example — Azure (remote) backend
 
 ```bash
 npx auto-i18n-cli \
