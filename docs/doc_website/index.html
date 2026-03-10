@@ -1,0 +1,140 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>react-auto-i18n</title><meta name="description" content="Documentation for react-auto-i18n"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">react-auto-i18n</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>react-auto-i18n</h1></div><div class="tsd-panel tsd-typography"><h1 id="react-auto-i18n" class="tsd-anchor-link">react-auto-i18n<a href="#react-auto-i18n" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>A React internationalization (i18n) library with automatic translation support. Wrap your app in a provider, mark strings with <code>__t()</code>, and let the CLI generate your translation database.</p>
+<hr>
+<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">react-auto-i18n</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<h2 id="quick-start" class="tsd-anchor-link">Quick Start<a href="#quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="1-wrap-your-app-with" class="tsd-anchor-link">1. Wrap your app with <code>I18nProvider</code><a href="#1-wrap-your-app-with" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">StrictMode</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react&#39;</span><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">createRoot</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-dom/client&#39;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">App</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;./App.tsx&#39;</span><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">I18nProvider</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">db</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;./assets/translations.json&#39;</span><br/><br/><span class="hl-0">createRoot</span><span class="hl-1">(</span><span class="hl-4">document</span><span class="hl-1">.</span><span class="hl-0">getElementById</span><span class="hl-1">(</span><span class="hl-2">&#39;root&#39;</span><span class="hl-1">)!).</span><span class="hl-0">render</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-5">&lt;</span><span class="hl-6">I18nProvider</span><span class="hl-1"> </span><span class="hl-7">defaultLang</span><span class="hl-1">=</span><span class="hl-2">&quot;eng_Latn&quot;</span><span class="hl-1"> </span><span class="hl-7">defaultDatabase</span><span class="hl-1">=</span><span class="hl-8">{</span><span class="hl-4">db</span><span class="hl-8">}</span><span class="hl-5">&gt;</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-6">App</span><span class="hl-1"> </span><span class="hl-5">/&gt;</span><br/><span class="hl-1">  </span><span class="hl-5">&lt;/</span><span class="hl-6">I18nProvider</span><span class="hl-5">&gt;</span><br/><span class="hl-1">)</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="2-mark-strings-for-translation" class="tsd-anchor-link">2. Mark strings for translation<a href="#2-mark-strings-for-translation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="tsx"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">__t</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-8">function</span><span class="hl-1"> </span><span class="hl-0">MyComponent</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-3">return</span><span class="hl-1"> </span><span class="hl-5">&lt;</span><span class="hl-9">p</span><span class="hl-5">&gt;</span><span class="hl-8">{</span><span class="hl-0">__t</span><span class="hl-10">(</span><span class="hl-2">&quot;greeting&quot;</span><span class="hl-10">, </span><span class="hl-2">&quot;Hello, world!&quot;</span><span class="hl-10">)</span><span class="hl-8">}</span><span class="hl-5">&lt;/</span><span class="hl-9">p</span><span class="hl-5">&gt;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="3-generate-translations-with-the-cli" class="tsd-anchor-link">3. Generate translations with the CLI<a href="#3-generate-translations-with-the-cli" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="bash"><span class="hl-0">npx</span><span class="hl-1"> </span><span class="hl-2">auto-i18n-cli</span><span class="hl-1"> </span><span class="hl-8">-i</span><span class="hl-1"> </span><span class="hl-2">&quot;./src/**/*.ts&quot;</span><span class="hl-1"> </span><span class="hl-8">-o</span><span class="hl-1"> </span><span class="hl-2">&quot;./assets/translations.json&quot;</span><span class="hl-1"> </span><span class="hl-11">\</span><br/><span class="hl-1">  </span><span class="hl-8">-l</span><span class="hl-1"> </span><span class="hl-2">spa_Latn</span><span class="hl-1"> </span><span class="hl-8">-s</span><span class="hl-1"> </span><span class="hl-2">eng_Latn</span><span class="hl-1"> </span><span class="hl-8">-b</span><span class="hl-1"> </span><span class="hl-2">azure</span><span class="hl-1"> </span><span class="hl-8">--azureKey</span><span class="hl-1"> </span><span class="hl-2">&quot;YOUR_KEY&quot;</span>
+</code><button type="button">Copy</button></pre>
+
+<p>This scans your source files for all <code>__t()</code> and <code>__tv()</code> calls and outputs a JSON translation database.</p>
+<hr>
+<h2 id="translation-functions" class="tsd-anchor-link">Translation Functions<a href="#translation-functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="-simple-translation" class="tsd-anchor-link"><code>__t(key, message, args?)</code> — Simple translation<a href="#-simple-translation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="ts"><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-12">msg</span><span class="hl-1"> = </span><span class="hl-0">__t</span><span class="hl-1">(</span><span class="hl-2">&quot;welcome&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;Welcome to our app!&quot;</span><span class="hl-1">)</span><br/><span class="hl-13">// In Spanish: &quot;¡Bienvenido a nuestra aplicación!&quot;</span>
+</code><button type="button">Copy</button></pre>
+
+<p><strong>Escape code:</strong> Wrap text in <code>{{...}}</code> to prevent it from being translated:</p>
+<pre><code class="ts"><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-12">msg</span><span class="hl-1"> = </span><span class="hl-0">__t</span><span class="hl-1">(</span><span class="hl-2">&quot;info&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;This is powered by {{&#39;react-auto-i18n&#39;}}&quot;</span><span class="hl-1">)</span><br/><span class="hl-13">// The library name is preserved as-is</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="-plural-variant-translation" class="tsd-anchor-link"><code>__tv(key, messages, args)</code> — Plural / variant translation<a href="#-plural-variant-translation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Use this when the message varies based on a runtime value:</p>
+<pre><code class="ts"><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-12">msg</span><span class="hl-1"> = </span><span class="hl-0">__tv</span><span class="hl-1">(</span><span class="hl-2">&quot;apple.count&quot;</span><span class="hl-1">, [</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;You have one apple&quot;</span><span class="hl-1">,        ({ </span><span class="hl-4">count</span><span class="hl-1"> }) </span><span class="hl-8">=&gt;</span><span class="hl-1"> </span><span class="hl-4">count</span><span class="hl-1"> === </span><span class="hl-14">1</span><span class="hl-1">],</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;You have {{$count}} apples&quot;</span><span class="hl-1">, ({ </span><span class="hl-4">count</span><span class="hl-1"> }) </span><span class="hl-8">=&gt;</span><span class="hl-1"> </span><span class="hl-4">count</span><span class="hl-1"> &gt; </span><span class="hl-14">1</span><span class="hl-1">],</span><br/><span class="hl-1">  </span><span class="hl-2">&quot;You have no apples&quot;</span><br/><span class="hl-1">], { </span><span class="hl-4">count:</span><span class="hl-1"> </span><span class="hl-4">appleCount</span><span class="hl-1"> })</span>
+</code><button type="button">Copy</button></pre>
+
+<p><code>{{$count}}</code> is a variable placeholder — it's replaced at runtime with the value from <code>args</code> and is never translated.</p>
+<hr>
+<h2 id="changing-the-locale-at-runtime" class="tsd-anchor-link">Changing the Locale at Runtime<a href="#changing-the-locale-at-runtime" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Use the <code>useI18n</code> hook inside any component wrapped by <code>I18nProvider</code>:</p>
+<pre><code class="tsx"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">useI18n</span><span class="hl-1">, </span><span class="hl-4">__t</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-8">function</span><span class="hl-1"> </span><span class="hl-0">LanguageSwitcher</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-12">i18n</span><span class="hl-1"> = </span><span class="hl-0">useI18n</span><span class="hl-1">()</span><br/><br/><span class="hl-1">  </span><span class="hl-3">return</span><span class="hl-1"> (</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;</span><span class="hl-9">button</span><span class="hl-1"> </span><span class="hl-7">onClick</span><span class="hl-1">=</span><span class="hl-8">{</span><span class="hl-10">() </span><span class="hl-8">=&gt;</span><span class="hl-10"> </span><span class="hl-4">i18n</span><span class="hl-10">.</span><span class="hl-0">setLocale</span><span class="hl-10">(</span><span class="hl-2">&quot;fra_Latn&quot;</span><span class="hl-10">)</span><span class="hl-8">}</span><span class="hl-5">&gt;</span><br/><span class="hl-1">      Switch to French</span><br/><span class="hl-1">    </span><span class="hl-5">&lt;/</span><span class="hl-9">button</span><span class="hl-5">&gt;</span><br/><span class="hl-1">  )</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The <code>useI18n()</code> hook also exposes:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>locale</code></td>
+<td>The currently active <code>LangScriptCode</code></td>
+</tr>
+<tr>
+<td><code>setLocale(locale)</code></td>
+<td>Update the active locale</td>
+</tr>
+<tr>
+<td><code>database</code></td>
+<td>The currently loaded <code>I18nDatabase</code></td>
+</tr>
+<tr>
+<td><code>setDatabase(db)</code></td>
+<td>Swap out the translation database</td>
+</tr>
+<tr>
+<td><code>getLocales()</code></td>
+<td>List all locales present in the database</td>
+</tr>
+<tr>
+<td><code>getLocaleObj()</code></td>
+<td>Get a <code>LangScriptObj</code> wrapper for the current locale</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="language-script-codes" class="tsd-anchor-link">Language &amp; Script Codes<a href="#language-script-codes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Locales are identified by a <code>LangScriptCode</code> in the format <code>{lang}_{Script}</code>, e.g.:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eng_Latn</code></td>
+<td>English (Latin)</td>
+</tr>
+<tr>
+<td><code>spa_Latn</code></td>
+<td>Spanish (Latin)</td>
+</tr>
+<tr>
+<td><code>cmn_Hans</code></td>
+<td>Mandarin (Simplified)</td>
+</tr>
+<tr>
+<td><code>arb_Arab</code></td>
+<td>Arabic</td>
+</tr>
+<tr>
+<td><code>jpn_Jpan</code></td>
+<td>Japanese</td>
+</tr>
+</tbody>
+</table>
+<p>The library supports 200+ language-script combinations. Utility functions are provided to work with these codes:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">getLangCode</span><span class="hl-1">, </span><span class="hl-4">getScriptCode</span><span class="hl-1">, </span><span class="hl-4">getEnglishLangName</span><span class="hl-1">, </span><span class="hl-4">getCountryCode</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-0">getLangCode</span><span class="hl-1">(</span><span class="hl-2">&quot;eng_Latn&quot;</span><span class="hl-1">)        </span><span class="hl-13">// &quot;eng&quot;</span><br/><span class="hl-0">getScriptCode</span><span class="hl-1">(</span><span class="hl-2">&quot;eng_Latn&quot;</span><span class="hl-1">)      </span><span class="hl-13">// &quot;Latn&quot;</span><br/><span class="hl-0">getEnglishLangName</span><span class="hl-1">(</span><span class="hl-2">&quot;spa&quot;</span><span class="hl-1">)      </span><span class="hl-13">// &quot;Spanish&quot;</span><br/><span class="hl-0">getCountryCode</span><span class="hl-1">(</span><span class="hl-2">&quot;eng&quot;</span><span class="hl-1">)          </span><span class="hl-13">// &quot;US&quot;</span>
+</code><button type="button">Copy</button></pre>
+
+<p>You can also use the <code>LangScriptObj</code> class for an OOP-style interface:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">LangScriptObj</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-8">const</span><span class="hl-1"> </span><span class="hl-12">lang</span><span class="hl-1"> = </span><span class="hl-8">new</span><span class="hl-1"> </span><span class="hl-0">LangScriptObj</span><span class="hl-1">(</span><span class="hl-2">&quot;jpn_Jpan&quot;</span><span class="hl-1">)</span><br/><span class="hl-4">lang</span><span class="hl-1">.</span><span class="hl-0">getLangCode</span><span class="hl-1">()     </span><span class="hl-13">// &quot;jpn&quot;</span><br/><span class="hl-4">lang</span><span class="hl-1">.</span><span class="hl-0">getScriptCode</span><span class="hl-1">()   </span><span class="hl-13">// &quot;Jpan&quot;</span><br/><span class="hl-4">lang</span><span class="hl-1">.</span><span class="hl-0">getEnglishName</span><span class="hl-1">()  </span><span class="hl-13">// &quot;Japanese&quot;</span><br/><span class="hl-4">lang</span><span class="hl-1">.</span><span class="hl-0">getCountry</span><span class="hl-1">()      </span><span class="hl-13">// &quot;JP&quot;</span><br/><span class="hl-4">lang</span><span class="hl-1">.</span><span class="hl-0">getCountryFlag</span><span class="hl-1">()  </span><span class="hl-13">// &lt;CountryFlag country=&quot;JP&quot; /&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<h2 id="translation-database-format" class="tsd-anchor-link">Translation Database Format<a href="#translation-database-format" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>The database is a JSON object keyed by <code>LangScriptCode</code>:</p>
+<pre><code class="json"><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-15">&quot;eng_Latn&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-15">&quot;greeting&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;Hello!&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-15">&quot;apple.count&quot;</span><span class="hl-1">: [</span><span class="hl-2">&quot;You have one apple&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;You have {{$count}} apples&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;You have no apples&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">  </span><span class="hl-15">&quot;spa_Latn&quot;</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-15">&quot;greeting&quot;</span><span class="hl-1">: </span><span class="hl-2">&quot;¡Hola!&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-15">&quot;apple.count&quot;</span><span class="hl-1">: [</span><span class="hl-2">&quot;Tienes una manzana&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;Tienes {{$count}} manzanas&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;No tienes manzanas&quot;</span><span class="hl-1">]</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The type <code>I18nDatabase</code> is defined as <code>Partial&lt;Record&lt;LangScriptCode, LanguageTranslations&gt;&gt;</code>.</p>
+<hr>
+<h2 id="low-level-api" class="tsd-anchor-link">Low-Level API<a href="#low-level-api" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>These functions operate on the global translation state directly. Prefer the React hooks when possible.</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">setI18nDatabaseRaw</span><span class="hl-1">, </span><span class="hl-4">setCurrentLocalRaw</span><span class="hl-1">, </span><span class="hl-4">getCurrentLocalRaw</span><span class="hl-1">, </span><span class="hl-4">getI18nDatabaseRaw</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-0">setI18nDatabaseRaw</span><span class="hl-1">(</span><span class="hl-4">db</span><span class="hl-1">)</span><br/><span class="hl-0">setCurrentLocalRaw</span><span class="hl-1">(</span><span class="hl-2">&quot;deu_Latn&quot;</span><span class="hl-1">)</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<h2 id="validation-helpers" class="tsd-anchor-link">Validation Helpers<a href="#validation-helpers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Safely parse untrusted strings into typed codes (returns <code>null</code> if invalid):</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">stringToLangCode</span><span class="hl-1">, </span><span class="hl-4">stringToScriptCode</span><span class="hl-1">, </span><span class="hl-4">stringToLangScriptCode</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;react-auto-i18n&#39;</span><br/><br/><span class="hl-0">stringToLangCode</span><span class="hl-1">(</span><span class="hl-2">&quot;eng&quot;</span><span class="hl-1">)          </span><span class="hl-13">// &quot;eng&quot;</span><br/><span class="hl-0">stringToLangCode</span><span class="hl-1">(</span><span class="hl-2">&quot;not_a_lang&quot;</span><span class="hl-1">)   </span><span class="hl-13">// null</span><br/><span class="hl-0">stringToLangScriptCode</span><span class="hl-1">(</span><span class="hl-2">&quot;fra_Latn&quot;</span><span class="hl-1">) </span><span class="hl-13">// &quot;fra_Latn&quot;</span>
+</code><button type="button">Copy</button></pre>
+
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#react-auto-i18n"><span>react-<wbr/>auto-<wbr/>i18n</span></a><ul><li><a href="#installation"><span>Installation</span></a></li><li><a href="#quick-start"><span>Quick <wbr/>Start</span></a></li><li><ul><li><a href="#1-wrap-your-app-with"><span>1. <wbr/>Wrap your app with </span></a></li><li><a href="#2-mark-strings-for-translation"><span>2. <wbr/>Mark strings for translation</span></a></li><li><a href="#3-generate-translations-with-the-cli"><span>3. <wbr/>Generate translations with the <wbr/>CLI</span></a></li></ul></li><li><a href="#translation-functions"><span>Translation <wbr/>Functions</span></a></li><li><ul><li><a href="#-simple-translation"><span> — <wbr/>Simple translation</span></a></li><li><a href="#-plural-variant-translation"><span> — <wbr/>Plural / variant translation</span></a></li></ul></li><li><a href="#changing-the-locale-at-runtime"><span>Changing the <wbr/>Locale at <wbr/>Runtime</span></a></li><li><a href="#language-script-codes"><span>Language &amp; <wbr/>Script <wbr/>Codes</span></a></li><li><a href="#translation-database-format"><span>Translation <wbr/>Database <wbr/>Format</span></a></li><li><a href="#low-level-api"><span>Low-<wbr/>Level <wbr/>API</span></a></li><li><a href="#validation-helpers"><span>Validation <wbr/>Helpers</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">react-auto-i18n</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
