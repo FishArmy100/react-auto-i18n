@@ -14,7 +14,7 @@ npm install react-auto-i18n
 
 ## Quick Start
 
-### 1. Wrap your app with `I18nProvider` 
+### 1. Wrap your app with `I18nProvider`
 
 ```tsx
 import { StrictMode } from 'react'
