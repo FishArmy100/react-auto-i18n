@@ -110,6 +110,10 @@ export function getCurrentLocalRaw(): LangScriptCode
  * 
  * ### **Escape Code**
  * You can use double curly braces `{{...}}` to stop the translation engine from translating any text inside. The curly braces are removed after translation.
+ * If a `$` is placed before the text inside of the escape code, it is treated as a variable which values can be passed, 
+ * and incorporated into the text. 
+ * 
+ * **NOTE:** the passed arguments are **NOT** translated
  * ```ts
  * import db from "./translations.json";
  * setI18nDatabaseRaw(db);
@@ -122,6 +126,7 @@ export function getCurrentLocalRaw(): LangScriptCode
  * 
  * @param key The key for the translation
  * @param message The message to be translated
+ * @param arg A object that is passed as the argument to the selection functions and used for variable substitution
  * @returns The translation of the message for the currently set locale.
  */
 export function __t<T extends { [k: string]: any | undefined }>(key: string, message: string, arg?: T): string 

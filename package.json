@@ -3,6 +3,11 @@
     "workspaces": [
         "packages/*"
     ],
+    "scripts": {
+        "publish_website": "npm run publish_website:docs && npm run publish_website:example",
+        "publish_website:docs": "npm run docs --workspace=react-auto-i18n",
+        "publish_website:example": "npm run build:pages --workspace=example-website"
+    },
     "dependencies": {
         "all-iso-language-codes": "^1.0.21",
         "iso-639-3": "^3.0.1",

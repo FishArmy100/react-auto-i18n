@@ -2,16 +2,21 @@ import React from "react";
 import { CountryCode } from "../core";
 import 'flag-icons/css/flag-icons.min.css';
 
-export type CountryFlagProps = {
+export type CountryFlagProps = React.HtmlHTMLAttributes<HTMLSpanElement> & {
     country: CountryCode,
 }
 
 export default function CountryFlag({
     country,
+    className,
+    ...rest
 }: CountryFlagProps): React.ReactElement
 {
-    let className = `fi fi-${country.toLocaleLowerCase()}`
+    let flagClass = `fi fi-${country.toLocaleLowerCase()}`
     return (
-        <span className={className}></span>
+        <span 
+            className={`${flagClass}${className ? ` ${className}` : ""}`} 
+            {...rest}
+        />
     )
 }
