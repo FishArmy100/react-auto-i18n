@@ -8,4 +8,8 @@
 
 > **ScriptDirection** = `"ltr"` \| `"rtl"`
 
-Defined in: [core/script\_code.ts:9](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/core/script_code.ts#L9)
+Defined in: [core/script\_code.ts:14](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/core/script_code.ts#L14)
+
+The direction that a given script is read, and should be rendered
+- `ltr`: Left-to-Right
+- `rtl`: Right-to-Left

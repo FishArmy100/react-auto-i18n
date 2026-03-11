@@ -6,6 +6,11 @@ import { LANG_SCRIPT_CODES, LangScriptCode, SCRIPT_CODES } from "./index";
 export type ScriptCode = LangScriptCode extends `${string}_${infer S}` ? S : never;
 
 
+/**
+ * The direction that a given script is read, and should be rendered
+ * - `ltr`: Left-to-Right
+ * - `rtl`: Right-to-Left
+ */
 export type ScriptDirection = "ltr" | "rtl";
 
 /**

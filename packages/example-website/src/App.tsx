@@ -44,6 +44,7 @@ export default function App(): React.ReactElement {
 	const [liked, setLiked] = useState(false);
 
 	const i18n = useI18n();
+	const direction = i18n.getLocaleObj().getScriptDirection();
 
 	// --- Translated strings ---
 	const heading         = useMemo(() => __t("heading",       "Welcome to the translation demo!"),                    [i18n]);
@@ -133,101 +134,113 @@ i18n.getLocales().map(l => {
 });`;
 
 	return (
-		<Box sx={{ p: 3, maxWidth: 860, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 3 }}>
-
-			{/* Header */}
-			<Paper elevation={3} sx={{ p: 3, borderRadius: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
-				<Typography variant="h4" fontWeight="bold">{heading}</Typography>
-				<Typography variant="subtitle1" sx={{ mt: 1, opacity: 0.9 }}>{subheading}</Typography>
-				<Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-					{lang.getCountryFlag()}
-					<Typography variant="body2" sx={{ opacity: 0.85 }}>
-						{localeName ?? englishName ?? rawCode}
-						{englishName && localeName && localeName !== englishName && ` · ${englishName}`}
-					</Typography>
+		<div dir={direction}>
+			<Box
+			
+				sx={{ p: 3, maxWidth: 860, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 3 }}
+			>
+				{/* Header */}
+				<Paper elevation={3} sx={{ p: 3, borderRadius: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+					<Typography variant="h4" fontWeight="bold">{heading}</Typography>
+					<Typography variant="subtitle1" sx={{ mt: 1, opacity: 0.9 }}>{subheading}</Typography>
+					<Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+						{lang.getCountryFlag()}
+						<Typography variant="body2" sx={{ opacity: 0.85 }}>
+							{localeName ?? englishName ?? rawCode}
+							{englishName && localeName && localeName !== englishName && ` · ${englishName}`}
+						</Typography>
+					</Box>
+				</Paper>
+			
+				  {/* Language Switcher */}
+				<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
+					<Typography variant="h6" fontWeight="bold" gutterBottom>{switchTitle}</Typography>
+					<Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+						{i18n.getLocales().map(l => {
+							const obj = new LangScriptObj(l);
+							const label = obj.getName() ?? obj.getEnglishName() ?? l;
+							return (
+								<Button
+									key={l}
+									variant={i18n.locale === l ? 'contained' : 'outlined'}
+									onClick={() => i18n.setLocale(l)}
+									startIcon={obj.getCountryFlag()}
+									size="small"
+									sx={{ gap: direction === "rtl" ? 1 : 0 }}
+								>
+									{label}
+								</Button>
+							);
+						})}
+					</Box>
+				</Paper>
+			
+				  <Divider />
+				{/* Apple Counter */}
+				<Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
+					<Typography variant="h6" fontWeight="bold" gutterBottom>{counterTitle}</Typography>
+					<Typography variant="body2" color="text.secondary" gutterBottom>{applePrompt}</Typography>
+					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
+						{direction === 'rtl' ? (
+							<>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
+								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
+							</>
+						) : (
+							<>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
+								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
+							</>
+						)}
+					</Box>
+				</Paper>
+				{/* Locale Info */}
+				<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
+					<Typography variant="h6" fontWeight="bold" gutterBottom>{localeInfoTitle}</Typography>
+					<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+						<Chip label={`code: ${rawCode}`} />
+						<Chip label={`lang: ${langCode}`} />
+						<Chip label={`script: ${scriptCode}`} />
+						<Chip
+							label={`country: ${countryCode}`}
+							icon={<>{lang.getCountryFlag()}</>}
+							sx={{ pl: direction === 'rtl' ? 0 : 1, pr: direction === 'rtl' ? 1 : 0 }}
+						/>
+						{englishName  && <Chip label={`english: ${englishName}`} />}
+						{localeName   && <Chip label={`native: ${localeName}`} />}
+					</Box>
+				</Paper>
+				{/* Like button */}
+				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Button
+						variant={liked ? 'contained' : 'outlined'}
+						color="secondary"
+						size="large"
+						onClick={() => setLiked(l => !l)}
+						sx={{ borderRadius: 5, px: 4 }}
+					>
+						{likeBtn}
+					</Button>
 				</Box>
-			</Paper>
-
-      {/* Language Switcher */}
-			<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
-				<Typography variant="h6" fontWeight="bold" gutterBottom>{switchTitle}</Typography>
-				<Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-					{i18n.getLocales().map(l => {
-						const obj = new LangScriptObj(l);
-						const label = obj.getName() ?? obj.getEnglishName() ?? l;
-						return (
-							<Button
-								key={l}
-								variant={i18n.locale === l ? 'contained' : 'outlined'}
-								onClick={() => i18n.setLocale(l)}
-								startIcon={obj.getCountryFlag()}
-								size="small"
-							>
-								{label}
-							</Button>
-						);
-					})}
-				</Box>
-			</Paper>
-
-      <Divider />
-
-			{/* Apple Counter */}
-			<Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
-				<Typography variant="h6" fontWeight="bold" gutterBottom>{counterTitle}</Typography>
-				<Typography variant="body2" color="text.secondary" gutterBottom>{applePrompt}</Typography>
-				<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
-					<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
-					<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
-					<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
-				</Box>
-			</Paper>
-
-			{/* Locale Info */}
-			<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
-				<Typography variant="h6" fontWeight="bold" gutterBottom>{localeInfoTitle}</Typography>
-				<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-					<Chip label={`code: ${rawCode}`} />
-					<Chip label={`lang: ${langCode}`} />
-					<Chip label={`script: ${scriptCode}`} />
-					{countryCode  && <Chip label={`country: ${countryCode}`} icon={<>{lang.getCountryFlag()}</>} sx={{ pl: 1 }} />}
-					{englishName  && <Chip label={`english: ${englishName}`} />}
-					{localeName   && <Chip label={`native: ${localeName}`} />}
-				</Box>
-			</Paper>
-
-			{/* Like button */}
-			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-				<Button
-					variant={liked ? 'contained' : 'outlined'}
-					color="secondary"
-					size="large"
-					onClick={() => setLiked(l => !l)}
-					sx={{ borderRadius: 5, px: 4 }}
-				>
-					{likeBtn}
-				</Button>
+				<Divider />
+				{/* Code Examples */}
+				<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
+					<Typography variant="h6" fontWeight="bold" gutterBottom>{examplesTitle}</Typography>
+					<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+						<CodeBlock label="__t() — basic translation" code={exampleBasic} />
+						<CodeBlock label="__tv() — variant translation with variables" code={exampleVariants} />
+						<CodeBlock label="Locale introspection" code={exampleLocale} />
+						<CodeBlock label="Validation & formatting helpers" code={exampleValidation} />
+						<CodeBlock label="Language switcher" code={exampleSwitcher} />
+					</Box>
+				</Paper>
+				{/* Footer */}
+				<Typography variant="caption" color="text.secondary" textAlign="center">
+					{footerNote}
+				</Typography>
 			</Box>
-
-			<Divider />
-
-			{/* Code Examples */}
-			<Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
-				<Typography variant="h6" fontWeight="bold" gutterBottom>{examplesTitle}</Typography>
-				<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-					<CodeBlock label="__t() — basic translation" code={exampleBasic} />
-					<CodeBlock label="__tv() — variant translation with variables" code={exampleVariants} />
-					<CodeBlock label="Locale introspection" code={exampleLocale} />
-					<CodeBlock label="Validation & formatting helpers" code={exampleValidation} />
-					<CodeBlock label="Language switcher" code={exampleSwitcher} />
-				</Box>
-			</Paper>
-
-			{/* Footer */}
-			<Typography variant="caption" color="text.secondary" textAlign="center">
-				{footerNote}
-			</Typography>
-
-		</Box>
+		</div>
 	);
 }

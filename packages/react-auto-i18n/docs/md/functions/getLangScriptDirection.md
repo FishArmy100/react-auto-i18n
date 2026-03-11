@@ -8,7 +8,7 @@
 
 > **getLangScriptDirection**(`langScript`): [`ScriptDirection`](../type-aliases/ScriptDirection.md)
 
-Defined in: [core/script\_code.ts:112](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/core/script_code.ts#L112)
+Defined in: [core/script\_code.ts:117](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/core/script_code.ts#L117)
 
 Gets the `ScriptDirection` from the `ScriptCode` of a `LangScriptCode`
 
