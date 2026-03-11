@@ -8,7 +8,7 @@
 
 > **useI18n**(): [`I18nContextType`](../interfaces/I18nContextType.md)
 
-Defined in: [components/I18nProvider.tsx:144](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/components/I18nProvider.tsx#L144)
+Defined in: [components/I18nProvider.tsx:144](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L144)
 
 Allows for the modification and usage of the global database and locale states. Must be used on the context of a `I18nProvider`.
 

@@ -183,15 +183,15 @@ i18n.getLocales().map(l => {
 					<Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
 						{direction === 'rtl' ? (
 							<>
-								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
-								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
 								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
+								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
 							</>
 						) : (
 							<>
-								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
-								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
 								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => Math.max(0, c - 1))}>−</Button>
+								<Typography variant="h6" sx={{ minWidth: 220, textAlign: 'center' }}>{apples}</Typography>
+								<Button variant="outlined" size="large" onClick={() => setAppleCount(c => c + 1)}>+</Button>
 							</>
 						)}
 					</Box>

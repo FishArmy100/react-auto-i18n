@@ -8,7 +8,7 @@
 
 > **\_\_tv**\<`T`\>(`key`, `messages`, `arg`): `string`
 
-Defined in: [i18n.ts:262](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/i18n.ts#L262)
+Defined in: [i18n.ts:262](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/i18n.ts#L262)
 
 The secondary translation function for this API. 
 When using `auto-i18n-cli` to parse the program and generate the database automatically, `key` must be a string literal and `messages` 

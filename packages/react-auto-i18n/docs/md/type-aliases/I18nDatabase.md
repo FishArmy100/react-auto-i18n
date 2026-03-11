@@ -8,7 +8,7 @@
 
 > **I18nDatabase** = `Partial`\<`Readonly`\<`Record`\<[`LangScriptCode`](LangScriptCode.md), [`LanguageTranslations`](LanguageTranslations.md)\>\>\>
 
-Defined in: [i18n.ts:26](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/i18n.ts#L26)
+Defined in: [i18n.ts:26](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/i18n.ts#L26)
 
 Essentially represents all translations loaded for this application. It can be represented in JSON as:
 ```json

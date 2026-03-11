@@ -8,7 +8,7 @@
 
 > **I18nProvider**(`props`): `ReactElement`
 
-Defined in: [components/I18nProvider.tsx:91](https://github.com/FishArmy100/react-auto-i18n/blob/99ba2eb7ff6949727673e00fa957e3a0da05d514/packages/react-auto-i18n/src/components/I18nProvider.tsx#L91)
+Defined in: [components/I18nProvider.tsx:91](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L91)
 
 The provider for the `I18nDatabase` and current local.
 
