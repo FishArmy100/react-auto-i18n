@@ -2,13 +2,13 @@
 
 ***
 
-[react-auto-i18n](../README.md) / useI18n
+[react-auto-i18n](../globals.md) / useI18n
 
 # Function: useI18n()
 
 > **useI18n**(): [`I18nContextType`](../interfaces/I18nContextType.md)
 
-Defined in: [components/I18nProvider.tsx:144](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/components/I18nProvider.tsx#L144)
+Defined in: [components/I18nProvider.tsx:144](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/components/I18nProvider.tsx#L144)
 
 Allows for the modification and usage of the global database and locale states. Must be used on the context of a `I18nProvider`.
 

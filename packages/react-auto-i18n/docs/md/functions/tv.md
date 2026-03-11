@@ -2,13 +2,13 @@
 
 ***
 
-[react-auto-i18n](../README.md) / \_\_tv
+[react-auto-i18n](../globals.md) / \_\_tv
 
 # Function: \_\_tv()
 
 > **\_\_tv**\<`T`\>(`key`, `messages`, `arg`): `string`
 
-Defined in: [i18n.ts:257](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/i18n.ts#L257)
+Defined in: [i18n.ts:262](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/i18n.ts#L262)
 
 The secondary translation function for this API. 
 When using `auto-i18n-cli` to parse the program and generate the database automatically, `key` must be a string literal and `messages` 

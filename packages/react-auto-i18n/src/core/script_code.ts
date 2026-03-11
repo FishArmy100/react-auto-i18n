@@ -5,6 +5,9 @@ import { LANG_SCRIPT_CODES, LangScriptCode, SCRIPT_CODES } from "./index";
  */
 export type ScriptCode = LangScriptCode extends `${string}_${infer S}` ? S : never;
 
+
+export type ScriptDirection = "ltr" | "rtl";
+
 /**
  * Gets the Script from the LangScriptCode. \
  * **Example:**
@@ -52,4 +55,62 @@ export function stringToScriptCode(str: string): ScriptCode | null
 	{
 		return null;
 	}
+}
+
+const SCRIPT_DIRECTION: Record<ScriptCode, ScriptDirection> = {
+  // RTL scripts
+  Arab: "rtl",
+  Hebr: "rtl",
+  Nkoo: "rtl",
+  Tfng: "rtl",
+
+  // LTR scripts
+  Latn: "ltr",
+  Cyrl: "ltr",
+  Deva: "ltr",
+  Beng: "ltr",
+  Hans: "ltr",
+  Hant: "ltr",
+  Ethi: "ltr",
+  Grek: "ltr",
+  Gujr: "ltr",
+  Armn: "ltr",
+  Jpan: "ltr",
+  Knda: "ltr",
+  Geor: "ltr",
+  Khmr: "ltr",
+  Hang: "ltr",
+  Laoo: "ltr",
+  Mlym: "ltr",
+  Mtei: "ltr",
+  Mymr: "ltr",
+  Orya: "ltr",
+  Guru: "ltr",
+  Olck: "ltr",
+  Sinh: "ltr",
+  Taml: "ltr",
+  Telu: "ltr",
+  Thai: "ltr",
+  Tibt: "ltr",
+};
+
+/**
+ * Gets the `ScriptDirection` from a `ScriptCode`
+ * @param script a `ScriptCode`
+ * @returns the `ScriptDirection` from the `ScriptCode`
+ */
+export function getScriptDirection(script: ScriptCode): ScriptDirection 
+{
+	return SCRIPT_DIRECTION[script];
+}
+
+/**
+ * Gets the `ScriptDirection` from the `ScriptCode` of a `LangScriptCode`
+ * @param script a `LangScriptCode`
+ * @returns the `ScriptDirection` from the `ScriptCode` of a `LangScriptCode`
+ */
+export function getLangScriptDirection(langScript: LangScriptCode): ScriptDirection
+{
+	const script = getScriptCode(langScript);
+	return getScriptDirection(script);
 }

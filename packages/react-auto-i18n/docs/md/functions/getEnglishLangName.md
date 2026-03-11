@@ -2,13 +2,13 @@
 
 ***
 
-[react-auto-i18n](../README.md) / getEnglishLangName
+[react-auto-i18n](../globals.md) / getEnglishLangName
 
 # Function: getEnglishLangName()
 
 > **getEnglishLangName**(`code`): `string` \| `null`
 
-Defined in: [core/lang\_code.ts:46](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/core/lang_code.ts#L46)
+Defined in: [core/lang\_code.ts:46](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/core/lang_code.ts#L46)
 
 Gets the english name of a `LangCode`
 

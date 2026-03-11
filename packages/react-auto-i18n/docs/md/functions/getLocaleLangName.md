@@ -2,13 +2,13 @@
 
 ***
 
-[react-auto-i18n](../README.md) / getLocaleLangName
+[react-auto-i18n](../globals.md) / getLocaleLangName
 
 # Function: getLocaleLangName()
 
 > **getLocaleLangName**(`code`): `string` \| `null`
 
-Defined in: [core/lang\_code.ts:270](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/core/lang_code.ts#L270)
+Defined in: [core/lang\_code.ts:270](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/core/lang_code.ts#L270)
 
 Gets the local name of a `LangCode`
 

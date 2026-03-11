@@ -1,5 +1,5 @@
 import CountryFlag from "../components/CountryFlag";
-import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, LangCode, LangScriptCode, ScriptCode } from "./index";
+import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, getScriptDirection, LangCode, LangScriptCode, ScriptCode, ScriptDirection } from "./index";
 
 /**
  * A helper wrapper object for the `LangScriptCode`, providing basic functions in an OOP style.
@@ -69,5 +69,15 @@ export class LangScriptObj
     {
         let country = this.getCountry();
         return country ? CountryFlag({ country }) : null
+    }
+
+    /**
+     * A helper function for getting the `ScriptDirection` for wrapped `LangScriptCode`
+     * @returns the `ScriptDirection` for wrapped `LangScriptCode`
+     */
+    public getScriptDirection(): ScriptDirection
+    {
+        const script = this.getScriptCode();
+        return getScriptDirection(script);
     }
 }

@@ -2,13 +2,13 @@
 
 ***
 
-[react-auto-i18n](../README.md) / I18nProvider
+[react-auto-i18n](../globals.md) / I18nProvider
 
 # Function: I18nProvider()
 
 > **I18nProvider**(`props`): `ReactElement`
 
-Defined in: [components/I18nProvider.tsx:91](https://github.com/FishArmy100/react-auto-i18n/blob/ea05449f0c4d38e6a5ffc7d4a8223622f335cb56/packages/react-auto-i18n/src/components/I18nProvider.tsx#L91)
+Defined in: [components/I18nProvider.tsx:91](https://github.com/FishArmy100/react-auto-i18n/blob/55efd561fa2cdfbb2941829b07bcaf934e8a6790/packages/react-auto-i18n/src/components/I18nProvider.tsx#L91)
 
 The provider for the `I18nDatabase` and current local.
 
