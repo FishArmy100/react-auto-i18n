@@ -3,11 +3,11 @@ import { CountryCode } from "../core";
 import 'flag-icons/css/flag-icons.min.css';
 
 /**
- * The properties for `CountryFlag`
+ * The properties for {@link CountryFlag}
  */
 export type CountryFlagProps = React.HtmlHTMLAttributes<HTMLSpanElement> & {
     /**
-     * The country code for `CountryFlag`
+     * The {@link CountryCode} for {@link CountryFlag}
      */
     country: CountryCode,
 }
@@ -15,7 +15,7 @@ export type CountryFlagProps = React.HtmlHTMLAttributes<HTMLSpanElement> & {
 /**
  * Renders a country flag icon based on the provided country code.
  * @param props - The component props
- * @param props.country - The country code (e.g., 'US', 'FR', 'DE')
+ * @param props.country - The country code (e.g., 'US', 'FR', 'DE'), see all values in {@link CountryCode}
  * @param props.className - Optional additional CSS class names to apply to the flag element
  * @param props.rest - Additional HTML span element attributes
  * @returns A React element displaying the country flag icon

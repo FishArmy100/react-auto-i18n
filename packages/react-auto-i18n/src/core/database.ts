@@ -30,10 +30,15 @@ export type I18nDatabaseType = Partial<Readonly<Record<LangScriptCode, LanguageT
  */
 export type LanguageTranslations = Partial<Readonly<Record<string, string | string[]>>>
 
+/**
+ * The interface for a database 
+ */
 export interface I18nDatabase
 {
     get(lang: LangScriptCode, key: string): string[] | string | undefined;
-    langs(): LangScriptCode[],
+    langs(): LangScriptCode[]
+    addOnChangeListener(listener: (db: CachedI18nDb) => void): void,
+    removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean
 }
 
 export class RawI18nDb implements I18nDatabase
@@ -44,6 +49,8 @@ export class RawI18nDb implements I18nDatabase
     {
         this.db = db;
     }
+    addOnChangeListener(listener: (db: CachedI18nDb) => void): void {}
+    removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean { return false }
 
     public static async load(path: string): Promise<RawI18nDb>
     {
@@ -141,4 +148,9 @@ export class CachedI18nDb implements I18nDatabase
     }
 }
 
-export const I18nDatabaseDefault: I18nDatabase = { get: () => undefined, langs: () => [] }
+export const I18nDatabaseDefault: I18nDatabase = { 
+    get: () => undefined, 
+    langs: () => [], 
+    addOnChangeListener: () => {}, 
+    removeOnChangeListener: () => false, 
+}
