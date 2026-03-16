@@ -1,0 +1,21 @@
+{
+  "heading": "欢迎来到翻译演示！",
+  "subheading": "这个应用展示了'react-auto-i18n'图书馆。",
+  "locale.title": "现今地方分会",
+  "switch.title": "切换语言",
+  "counter.title": "苹果计数器",
+  "examples.title": "代码示例",
+  "btn.liked": "你喜欢这个！❤️",
+  "btn.like": "比如这个演示 ♡",
+  "footer.note": "本页所有文字均为自动翻译。",
+  "apples.count": [
+    "你只有一个苹果 🍎",
+    "你有{{$count}}苹果 🍎",
+    "你没有苹果 🍏"
+  ],
+  "apples.prompt": [
+    "苹果真多！",
+    "继续！",
+    "下面加一些苹果。"
+  ]
+}

@@ -1,0 +1,6 @@
+
+Single:
+npx auto-i18n-cli -i "./src" -o "./public/translations.json" -s eng_Latn -l spa_Latn fra_Latn deu_Latn cmn_Hans jpn_Jpan arb_Arab hin_Deva rus_Cyrl por_Latn kor_Hang  -b azure --azureKey "..."
+
+Multi:
+npx auto-i18n-cli -i "./src" --multiFile -o "./public/translations" -s eng_Latn -l spa_Latn fra_Latn deu_Latn cmn_Hans jpn_Jpan arb_Arab hin_Deva rus_Cyrl por_Latn kor_Hang -b azure --azureKey "..."

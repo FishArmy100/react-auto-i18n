@@ -209,27 +209,6 @@
       "아래에 사과를 추가하세요."
     ]
   },
-  "swh_Latn": {
-    "heading": "Karibu kwenye onyesho la tafsiri!",
-    "subheading": "Programu hii inaonyesha maktaba ya 'react-auto-i18n'.",
-    "locale.title": "Mitaa ya sasa",
-    "switch.title": "Badilisha lugha",
-    "counter.title": "Kaunta ya Apple",
-    "examples.title": "Mifano ya Nambari",
-    "btn.liked": "Ulipenda hii! ❤️",
-    "btn.like": "Kama onyesho ♡ hili",
-    "footer.note": "Maandishi yote kwenye ukurasa huu yanatafsiriwa kiotomatiki.",
-    "apples.count": [
-      "Una apple 🍎 moja",
-      "Una tufaha 🍎 {{$count}}",
-      "Huna tufaha 🍏"
-    ],
-    "apples.prompt": [
-      "Hiyo ni tufaha nyingi!",
-      "Endelea!",
-      "Ongeza maapulo hapa chini."
-    ]
-  },
   "eng_Latn": {
     "heading": "Welcome to the translation demo!",
     "subheading": "This app showcases the 'react-auto-i18n' library.",

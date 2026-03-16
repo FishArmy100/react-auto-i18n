@@ -1,37 +1,8 @@
 import { LangScriptCode } from "./core";
-
-/**
- * Essentially represents all translations loaded for this application. It can be represented in JSON as:
- * ```json
- * {
- *      "eng_Latn": {
- *          "main.first": "...",
- *          "main.second": "...",
- *          ...
- *      },
- *      "fra_Latn": {
- *          "main.first": "...",
- *          "main.second": "...",
- *          ...
- *      },
- *      "spa_Latn": {
- *          "main.first": "...",
- *          "main.second": "...",
- *          ...
- *      },
- *      ...
- * }
- * ```
- */
-export type I18nDatabase = Partial<Readonly<Record<LangScriptCode, LanguageTranslations>>>
-
-/**
- * A map that contains translations for all keys for a given language.
- */
-export type LanguageTranslations = Partial<Readonly<Record<string, string | string[]>>>
+import { I18nDatabase, I18nDatabaseDefault } from "./core/database";
 
 let currentLocale: LangScriptCode = "eng_Latn";
-let database: I18nDatabase = {}
+let database: I18nDatabase = I18nDatabaseDefault;
 
 /**
  * Sets the raw database used for translation. This is used by the `__t` function. \
@@ -157,7 +128,7 @@ export function __t<T extends { [k: string]: any | undefined }>(key: string, mes
 
 function innerT(key: string, message: string): string 
 {
-    const translation = database[currentLocale]?.[key];
+    const translation = database.get(currentLocale, key);
     if (translation === undefined)
     {
         return message;
@@ -279,7 +250,7 @@ export function __tv<T extends { [k: string]: any | undefined }>(key: string, me
 
 function innerTv<T extends { [k: string]: any }>(key: string, messages: TVArgs<T>, arg: T): string
 {
-    const translation = database[currentLocale]?.[key];
+    const translation = database.get(currentLocale, key);
     const index = selectIndex(messages, arg);
 
     if (translation === undefined)

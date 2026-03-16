@@ -1,6 +1,7 @@
-import { I18nDatabase, setCurrentLocalRaw, setI18nDatabaseRaw } from "../i18n";
+import { setCurrentLocalRaw, setI18nDatabaseRaw } from "../i18n";
 import { LangScriptCode, LangScriptObj } from "../core";
 import React, { createContext, useContext, useEffect, useState } from "react"
+import { CachedI18nDb, I18nDatabase, I18nDatabaseDefault, I18nDatabaseType, RawI18nDb } from "../core/database";
 
 /**
  * The context type for the `I18nProvider`
@@ -44,6 +45,20 @@ export interface I18nContextType
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
+export type I18nDatabaseSource = |{
+    mode: "inline",
+    data: I18nDatabaseType
+} |{
+    mode: "single-file",
+    path: string,
+} |{
+    mode: "multi-file",
+    path: string,
+} |{
+    mode: "raw",
+    db: I18nDatabase
+}
+
 /**
  * The properties for the `I18nProvider`
  */
@@ -56,12 +71,11 @@ export type I18nProviderProps = {
      * The default language code. When passed to the `I18nProvider`, defaults to `"eng_Latn"`
      */
     defaultLang: LangScriptCode,
-
     
     /**
      * The default database. When passed to the `I18nProvider`, defaults to `{}`
      */
-    defaultDatabase: I18nDatabase,
+    dbSource: I18nDatabaseSource,
 }
 
 /**
@@ -91,40 +105,83 @@ export type I18nProviderProps = {
 export function I18nProvider({
     children,
     defaultLang = "eng_Latn",
-    defaultDatabase = {},
+    dbSource,
 }: I18nProviderProps): React.ReactElement
 {
     const [localeState, setLocaleState] = useState<LangScriptCode>(() => {
         setCurrentLocalRaw(defaultLang);
         return defaultLang;
     });
-    const [databaseState, setDatabaseState] = useState<I18nDatabase>(() => {
-        setI18nDatabaseRaw(defaultDatabase);
-        return defaultDatabase;
-    });
+
+    const [databaseState, setDatabaseState] = useState<I18nDatabase>(I18nDatabaseDefault);
+    
+    const setDatabase = (db: I18nDatabase) => {
+        setI18nDatabaseRaw(db);
+        setDatabaseState(db);
+    }
 
     const setLocale = (locale: LangScriptCode) => {
         setCurrentLocalRaw(locale);
         setLocaleState(locale);
     }
 
-    const setDatabase = (database: I18nDatabase) => {
-        setI18nDatabaseRaw(database);
-        setDatabaseState(database);
-    }
+    // Load from file or folder
+    useEffect(() => {
+        if (dbSource.mode === "inline") 
+        {
+            setDatabase(new RawI18nDb(dbSource.data));
+            return;
+        }
+        else if (dbSource.mode === "raw")
+        {
+            setDatabase(dbSource.db);
+        }
 
-    const getLocales = () => {
-        return Object.keys(databaseState) as LangScriptCode[];
-    }
+        let cancelled = false;
 
-    const getLocaleObj = () => {
-        return new LangScriptObj(localeState);
-    }
+        if (dbSource.mode === "single-file") 
+        {
+            RawI18nDb.load(dbSource.path).then(db => {
+                if (!cancelled) 
+                {
+                    setDatabase(db)
+                };
+            });
+        } 
+        else if (dbSource.mode === "multi-file") 
+        {
+            let cachedDb: CachedI18nDb | null = null;
+
+            const listener = (db: CachedI18nDb) => {
+                if (!cancelled) setDatabaseState(db);
+            };
+
+            CachedI18nDb.load(dbSource.path).then(db => {
+                if (cancelled) 
+                    return;
+
+                cachedDb = db;
+                db.addOnChangeListener(listener);
+                setDatabaseState(db);
+            });
+
+            return () => {
+                cancelled = true;
+                cachedDb?.removeOnChangeListener(listener);
+            };
+        }
+
+        return () => { cancelled = true; };
+
+    }, [dbSource]);
+    
+    const getLocales = () => databaseState.langs();
+    const getLocaleObj = () => new LangScriptObj(localeState);
 
     return (
-        <I18nContext value={{ locale: localeState, getLocaleObj, database: databaseState, setLocale, setDatabase, getLocales, }}>
+        <I18nContext.Provider value={{ locale: localeState, getLocaleObj, database: databaseState, setLocale, setDatabase, getLocales, }}>
             {children}
-        </I18nContext>
+        </I18nContext.Provider>
     )
 }
 

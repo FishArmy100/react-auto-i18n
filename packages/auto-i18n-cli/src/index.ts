@@ -25,6 +25,7 @@ type ProgramOptions = {
 	azureRegion?: string,
 	azureEndpoint?: string,
 	nllbModel?: string,
+	multiFile?: boolean,
 }
 
 async function main() 
@@ -89,6 +90,12 @@ async function main()
 					optional: true,
 					description: 'NLLB model name (default: facebook/nllb-200-distilled-1.3B)',
 				},
+				multiFile: {
+					type: Boolean,
+					optional: true,
+					alias: 'm',
+					description: 'If used will separate each language into its own file with a manifest'
+				},
 				help: { 
 					type: Boolean, 
 					optional: true, 
@@ -143,7 +150,12 @@ async function runWithOptions(options: ProgramOptions)
 	translateArgs.segments = segments;
 
 	logMessage("Translating...");
-	await generateTranslationFile(translateArgs, output);
+	let success = await generateTranslationFile(translateArgs, output, options.multiFile ?? false);
+	if (!success)
+	{
+		logError("Translation Failed");
+		return;
+	}
 
 	const fullOutPath = path.resolve(output);
 	logMessage(`Extraction & Translation complete! Translations located at: ${fullOutPath}`);
@@ -247,12 +259,12 @@ function validateProgramOptions(options: ProgramOptions): ValidatedOptions | nul
 		};
 	}
 
-	const output = options.out ?? "out.json";
+	const output = options.out ?? ( options.multiFile ? "translations" : "translations.json");
 
 	return { input: inputPath, output, translateArgs }
 }
 
-async function generateTranslationFile(args: TranslateArgs, out: string)
+async function generateTranslationFile(args: TranslateArgs, out: string, multiFile: boolean): Promise<boolean>
 {	
 	const bar = new SingleBar({
 		format: chalk.green(`Generation Progress |${chalk.bold("{bar}")}| {percentage}% || {value}/{total} Chunks || ETA: {eta_formatted}`),
@@ -262,8 +274,9 @@ async function generateTranslationFile(args: TranslateArgs, out: string)
 	});
 
 	let bar_started = false;
+	let is_error = false;
 
-    return await runPython(args, (p: ProgressUpdate) => 
+    await runPython(args, (p: ProgressUpdate) => 
 		{
 			if (!bar_started)
 			{
@@ -273,13 +286,35 @@ async function generateTranslationFile(args: TranslateArgs, out: string)
 			bar.update(p.current)
 		})
 		.then(o => {
-			fs.mkdirSync(path.dirname(out), { recursive: true });
-			fs.writeFileSync(out, JSON.stringify(o.values, null, 2));
+			if (multiFile)
+			{
+				fs.mkdirSync(out, { recursive: true });
+				Object.entries(o.values).forEach(([k, v]) => {
+					const filePath = path.join(out, `${k}.json`);
+					fs.writeFileSync(filePath, JSON.stringify(v, null, 2));
+				});
+
+				const langs = Object.keys(o.values);
+				const manifestData = { langs };
+				const manifestPath = path.join(out, "manifest.json");
+				fs.writeFileSync(manifestPath, JSON.stringify(manifestData, null, 2));
+			}
+			else 
+			{
+				fs.mkdirSync(path.dirname(out), { recursive: true });
+				fs.writeFileSync(out, JSON.stringify(o.values, null, 2));
+			}
 		})
-		.catch(logError)
+		.catch(e => {
+			is_error = true;
+			bar.stop();
+			logError(e);
+		})
 		.finally(() => {
 			bar.stop();
 		});
+	
+	return !is_error;
 }
 
 main();

@@ -1,0 +1,21 @@
+{
+  "heading": "Bem-vindo à demonstração de tradução!",
+  "subheading": "Este aplicativo mostra a biblioteca 'react-auto-i18n'.",
+  "locale.title": "Local Atual",
+  "switch.title": "Linguagem Switch",
+  "counter.title": "Contador de Maçãs",
+  "examples.title": "Exemplos de Código",
+  "btn.liked": "Você gostou disso! ❤️",
+  "btn.like": "Como essa demo ♡",
+  "footer.note": "Todo o texto desta página é traduzido automaticamente.",
+  "apples.count": [
+    "Você tem uma maçã 🍎",
+    "Você tem {{$count}} maçãs 🍎",
+    "Você não tem maçãs 🍏"
+  ],
+  "apples.prompt": [
+    "São muitas maçãs!",
+    "Continue!",
+    "Adicione algumas maçãs abaixo."
+  ]
+}
