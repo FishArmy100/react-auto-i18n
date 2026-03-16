@@ -153,7 +153,13 @@ export function I18nProvider({
             let cachedDb: CachedI18nDb | null = null;
 
             const listener = (db: CachedI18nDb) => {
-                if (!cancelled) setDatabaseState(db);
+                if (!cancelled) 
+                {
+                    setDatabase({
+                        get: db.get.bind(db),
+                        langs: db.langs.bind(db),
+                    })
+                };
             };
 
             CachedI18nDb.load(dbSource.path).then(db => {
@@ -162,7 +168,7 @@ export function I18nProvider({
 
                 cachedDb = db;
                 db.addOnChangeListener(listener);
-                setDatabaseState(db);
+                setDatabase(db);
             });
 
             return () => {

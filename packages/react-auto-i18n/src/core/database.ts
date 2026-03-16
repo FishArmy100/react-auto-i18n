@@ -84,7 +84,7 @@ export class CachedI18nDb implements I18nDatabase
 
     public static async load(folder: string): Promise<CachedI18nDb>
     {
-        const manifestPath = folder + "\\" + FOLDER_LANGUAGE_MANIFEST_NAME
+        const manifestPath = folder + "/" + FOLDER_LANGUAGE_MANIFEST_NAME
         const registered = await fetch(manifestPath)
             .then(f => f.text())
             .then(t => JSON.parse(t) as FolderLanguageManifestType);
@@ -101,7 +101,7 @@ export class CachedI18nDb implements I18nDatabase
 
         if (this.db[lang] === undefined)
         {
-            const filePath = this.path + "\\" + `${lang}.json`;
+            const filePath = this.path + "/" + `${lang}.json`;
             fetch(filePath)
                 .then(f => f.text())
                 .then(t => JSON.parse(t) as LanguageTranslations)

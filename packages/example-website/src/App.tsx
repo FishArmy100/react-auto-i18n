@@ -205,7 +205,7 @@ i18n.getLocales().map(l => {
 						<Chip label={`script: ${scriptCode}`} />
 						<Chip
 							label={`country: ${countryCode}`}
-							icon={<>{lang.getCountryFlag()}</>}
+							icon={<span>{lang.getCountryFlag()}</span>}
 							sx={{ pl: direction === 'rtl' ? 0 : 1, pr: direction === 'rtl' ? 1 : 0 }}
 						/>
 						{englishName  && <Chip label={`english: ${englishName}`} />}
