@@ -1,7 +1,7 @@
 import { setCurrentLocalRaw, setI18nDatabaseRaw } from "../i18n";
 import { LangScriptCode, LangScriptObj } from "../core";
-import React, { createContext, useContext, useEffect, useState } from "react"
-import { CachedI18nDb, I18nDatabase, I18nDatabaseDefault, I18nDatabaseType, RawI18nDb, LanguageTranslations, FolderLanguageManifestType } from "../core/database";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { CachedMultiFileI18nDb, I18nDatabase, I18nDatabaseDefault, I18nDatabaseType, SimpleI18nDb, LanguageTranslations, FolderLanguageManifestType } from "../core/database";
 
 /**
  * The context type for the {@link I18nProvider}
@@ -94,7 +94,7 @@ export type I18nProviderProps = {
 export function I18nProvider({
     children,
     defaultLang = "eng_Latn",
-    db,
+    db: dbInit,
 }: I18nProviderProps): React.ReactElement
 {
     const [localeState, setLocaleState] = useState<LangScriptCode>(() => {
@@ -102,7 +102,10 @@ export function I18nProvider({
         return defaultLang;
     });
 
-    const [databaseState, setDatabaseState] = useState<I18nDatabase>(I18nDatabaseDefault);
+    const [databaseState, setDatabaseState] = useState<I18nDatabase>(() => {
+        setI18nDatabaseRaw(dbInit);
+        return dbInit;
+    });
     
     const setDatabase = (db: I18nDatabase) => {
         setI18nDatabaseRaw(db);
@@ -115,60 +118,20 @@ export function I18nProvider({
     }
 
     // Load from file or folder
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
     useEffect(() => {
-        if (dbSource.mode === "inline") 
-        {
-            setDatabase(new RawI18nDb(dbSource.data));
-            return;
-        }
-        else if (dbSource.mode === "raw")
-        {
-            setDatabase(dbSource.db);
-        }
+        const listener = () => forceUpdate();
+        databaseState.addOnChangeListener(listener);
+        
+        return () => { 
+            databaseState.removeOnChangeListener(listener);
+        };
+    }, [databaseState]);
 
-        let cancelled = false;
-
-        if (dbSource.mode === "single-file") 
-        {
-            RawI18nDb.load(dbSource.path).then(db => {
-                if (!cancelled) 
-                {
-                    setDatabase(db)
-                };
-            });
-        } 
-        else if (dbSource.mode === "multi-file") 
-        {
-            let cachedDb: CachedI18nDb | null = null;
-
-            const listener = (db: CachedI18nDb) => {
-                if (!cancelled) 
-                {
-                    setDatabase({
-                        get: db.get.bind(db),
-                        langs: db.langs.bind(db),
-                    })
-                };
-            };
-
-            CachedI18nDb.load(dbSource.path).then(db => {
-                if (cancelled) 
-                    return;
-
-                cachedDb = db;
-                db.addOnChangeListener(listener);
-                setDatabase(db);
-            });
-
-            return () => {
-                cancelled = true;
-                cachedDb?.removeOnChangeListener(listener);
-            };
-        }
-
-        return () => { cancelled = true; };
-
-    }, [dbSource]);
+    useEffect(() => {
+        setDatabase(dbInit);
+    }, [dbInit])
     
     const getLocales = () => databaseState.langs();
     const getLocaleObj = () => new LangScriptObj(localeState);

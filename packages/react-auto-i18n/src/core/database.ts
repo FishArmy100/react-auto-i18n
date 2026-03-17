@@ -37,11 +37,11 @@ export interface I18nDatabase
 {
     get(lang: LangScriptCode, key: string): string[] | string | undefined;
     langs(): LangScriptCode[]
-    addOnChangeListener(listener: (db: CachedI18nDb) => void): void,
-    removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean
+    addOnChangeListener(listener: () => void): void,
+    removeOnChangeListener(listener: () => void): boolean,
 }
 
-export class RawI18nDb implements I18nDatabase
+export class SimpleI18nDb implements I18nDatabase
 {
     private readonly db: I18nDatabaseType
 
@@ -49,15 +49,16 @@ export class RawI18nDb implements I18nDatabase
     {
         this.db = db;
     }
-    addOnChangeListener(listener: (db: CachedI18nDb) => void): void {}
-    removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean { return false }
 
-    public static async load(path: string): Promise<RawI18nDb>
+    addOnChangeListener(): void {}
+    removeOnChangeListener(): boolean { return false }
+
+    public static async load(path: string): Promise<SimpleI18nDb>
     {
         const res = await fetch(path)
         const json = await res.text()
         const db = JSON.parse(json) as I18nDatabaseType
-        return new RawI18nDb(db)
+        return new SimpleI18nDb(db)
     }
 
     public get(lang: LangScriptCode, key: string): string[] | string | undefined 
@@ -74,12 +75,12 @@ export class RawI18nDb implements I18nDatabase
 export const FOLDER_LANGUAGE_MANIFEST_NAME: string = "manifest.json"
 export type FolderLanguageManifestType = { langs: LangScriptCode[] }
 
-export class CachedI18nDb implements I18nDatabase
+export class CachedMultiFileI18nDb implements I18nDatabase
 {
     private readonly supportedLangs: LangScriptCode[];
     private readonly db: Partial<Record<LangScriptCode, LanguageTranslations>>
     private readonly path: string;
-    private onChangedListeners: ((db: CachedI18nDb) => void)[]
+    private onChangedListeners: (() => void)[]
 
     public constructor(path: string, langs: LangScriptCode[])
     {
@@ -89,14 +90,14 @@ export class CachedI18nDb implements I18nDatabase
         this.onChangedListeners = [];
     }
 
-    public static async load(folder: string): Promise<CachedI18nDb>
+    public static async load(folder: string): Promise<CachedMultiFileI18nDb>
     {
         const manifestPath = folder + "/" + FOLDER_LANGUAGE_MANIFEST_NAME
         const registered = await fetch(manifestPath)
             .then(f => f.text())
             .then(t => JSON.parse(t) as FolderLanguageManifestType);
 
-        return new CachedI18nDb(folder, registered.langs);
+        return new CachedMultiFileI18nDb(folder, registered.langs);
     }
 
     public get(lang: LangScriptCode, key: string): string[] | string | undefined 
@@ -128,12 +129,12 @@ export class CachedI18nDb implements I18nDatabase
         return this.supportedLangs;
     }
 
-    public addOnChangeListener(listener: (db: CachedI18nDb) => void)
+    public addOnChangeListener(listener: () => void)
     {
         this.onChangedListeners.push(listener);
     }
 
-    public removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean
+    public removeOnChangeListener(listener: () => void): boolean
     {
         const len = this.onChangedListeners.length;
         this.onChangedListeners = this.onChangedListeners.filter(l => l !== listener);
@@ -143,7 +144,7 @@ export class CachedI18nDb implements I18nDatabase
     private invokeOnChangeListeners()
     {
         this.onChangedListeners.forEach(l => {
-            l(this);
+            l();
         })
     }
 }

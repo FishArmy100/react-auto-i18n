@@ -1,4 +1,4 @@
-import CountryFlag from "../components/CountryFlag";
+import { CountryFlag } from "../components";
 import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, getScriptDirection, LangCode, LangScriptCode, ScriptCode, ScriptDirection } from "./index";
 
 /**

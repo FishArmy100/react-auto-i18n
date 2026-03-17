@@ -20,7 +20,7 @@ export type CountryFlagProps = React.HtmlHTMLAttributes<HTMLSpanElement> & {
  * @param props.rest - Additional HTML span element attributes
  * @returns A React element displaying the country flag icon
  */
-export default function CountryFlag({
+export function CountryFlag({
     country,
     className,
     ...rest
