@@ -1,0 +1,21 @@
+{
+  "heading": "翻訳デモへようこそ!",
+  "subheading": "このアプリは'react-auto-i18n'ライブラリを紹介しています。",
+  "locale.title": "現在のローカル",
+  "switch.title": "スイッチ言語",
+  "counter.title": "アップルカウンター",
+  "examples.title": "コード例",
+  "btn.liked": "気に入ったんだね!❤️",
+  "btn.like": "このデモ♡をおすすめします",
+  "footer.note": "このページのすべてのテキストは自動翻訳されています。",
+  "apples.count": [
+    "リンゴ🍎は一つだけ",
+    "リンゴ🍎は{{$count}}つある",
+    "リンゴ🍏がない"
+  ],
+  "apples.prompt": [
+    "たくさんのリンゴだ!",
+    "続けろ!",
+    "下にリンゴを加えてください。"
+  ]
+}

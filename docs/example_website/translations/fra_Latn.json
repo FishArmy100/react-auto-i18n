@@ -1,0 +1,21 @@
+{
+  "heading": "Bienvenue dans la démo de traduction !",
+  "subheading": "Cette application met en avant la bibliothèque 'react-auto-i18n'.",
+  "locale.title": "Équipe locale actuelle",
+  "switch.title": "Changer de langage",
+  "counter.title": "Compteur Apple",
+  "examples.title": "Exemples de code",
+  "btn.liked": "Tu as aimé ça ! ❤️",
+  "btn.like": "Comme cette démo ♡",
+  "footer.note": "Tout le texte de cette page est traduit automatiquement.",
+  "apples.count": [
+    "Tu as une pomme 🍎",
+    "Tu as {{$count}} pommes 🍎",
+    "Tu n’as pas de 🍏 pommes"
+  ],
+  "apples.prompt": [
+    "Ça fait beaucoup de pommes !",
+    "Continue !",
+    "Ajoutez quelques pommes ci-dessous."
+  ]
+}

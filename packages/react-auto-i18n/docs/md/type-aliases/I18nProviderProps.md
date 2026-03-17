@@ -8,9 +8,9 @@
 
 > **I18nProviderProps** = `object`
 
-Defined in: [components/I18nProvider.tsx:50](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L50)
+Defined in: [components/I18nProvider.tsx:51](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/components/I18nProvider.tsx#L51)
 
-The properties for the `I18nProvider`
+The properties for the [I18nProvider](../functions/I18nProvider.md)
 
 ## Properties
 
@@ -18,19 +18,19 @@ The properties for the `I18nProvider`
 
 > **children**: `React.ReactNode`
 
-Defined in: [components/I18nProvider.tsx:54](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L54)
+Defined in: [components/I18nProvider.tsx:55](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/components/I18nProvider.tsx#L55)
 
 The providers children
 
 ***
 
-### defaultDatabase
+### db
 
-> **defaultDatabase**: [`I18nDatabase`](I18nDatabase.md)
+> **db**: `I18nDatabase`
 
-Defined in: [components/I18nProvider.tsx:64](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L64)
+Defined in: [components/I18nProvider.tsx:64](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/components/I18nProvider.tsx#L64)
 
-The default database. When passed to the `I18nProvider`, defaults to `{}`
+The I18nDatabase for this provider
 
 ***
 
@@ -38,6 +38,6 @@ The default database. When passed to the `I18nProvider`, defaults to `{}`
 
 > **defaultLang**: [`LangScriptCode`](LangScriptCode.md)
 
-Defined in: [components/I18nProvider.tsx:58](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/I18nProvider.tsx#L58)
+Defined in: [components/I18nProvider.tsx:59](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/components/I18nProvider.tsx#L59)
 
-The default language code. When passed to the `I18nProvider`, defaults to `"eng_Latn"`
+The default language code. When passed to the [I18nProvider](../functions/I18nProvider.md), defaults to `"eng_Latn"`

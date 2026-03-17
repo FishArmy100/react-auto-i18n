@@ -5,7 +5,7 @@ let currentLocale: LangScriptCode = "eng_Latn";
 let database: I18nDatabase = I18nDatabaseDefault;
 
 /**
- * Sets the raw database used for translation. This is used by the `__t` function. \
+ * Sets the raw database used for translation. This is used by the {@link __t} and {@link __tv} functions. \
  * **NOTE:** Prefer to use `useI18n().setDatabase(...)`, as this updates the current state.
  * @param db 
  */
@@ -15,7 +15,7 @@ export function setI18nDatabaseRaw(db: I18nDatabase)
 }
 
 /**
- * Gets the raw database used for translation, which used by the `__t` function. \
+ * Gets the raw database used for translation, which used by the {@link __t} and {@link __tv} functions. \
  * **NOTE:** Prefer to use `useI18n().database` hook
  * @returns the raw `I18nDatabase` database
  */
@@ -25,7 +25,7 @@ export function getI18nDatabaseRaw(): I18nDatabase
 }
 
 /**
- * Sets the raw locale used for translation. This is used by the `__t` function. \
+ * Sets the raw locale used for translation. This is used by the {@link __t} and {@link __tv} functions. \
  * **NOTE:** Prefer to use `useI18n().setLocale(...)`, as this updates the current state.
  * @param locale 
  */
@@ -35,7 +35,7 @@ export function setCurrentLocalRaw(locale: LangScriptCode)
 }
 
 /**
- * Gets the raw current locale used for translation, which used by the `__t` function. \
+ * Gets the raw current locale used for translation, which used by the {@link __t} and {@link __tv} functions. \
  * **NOTE:** Prefer to use `useI18n().locale` hook
  * @returns The current raw `LangScriptCode` locale
  */
@@ -46,8 +46,8 @@ export function getCurrentLocalRaw(): LangScriptCode
 
 /**
  * The primary translation function for this API. 
- * When using `auto-i18n-cli` to parse the program and generate the database automatically, both arguments must be raw string literals.
- * The `auto-i18n-cli` looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
+ * When using {@link https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli auto-i18n-cli} to parse the program and generate the database automatically, both arguments must be raw string literals.
+ * The {@link https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli auto-i18n-cli} looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
  * 
  * ### **Translation (using auto-i18n-cli):** 
  * ```ts
@@ -147,11 +147,11 @@ export type TVArgs<T> = [...[string, (t: T) => boolean][], string]
 
 /**
  * The secondary translation function for this API. 
- * When using `auto-i18n-cli` to parse the program and generate the database automatically, `key` must be a string literal and `messages` 
+ * When using {@link https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli auto-i18n-cli} to parse the program and generate the database automatically, `key` must be a string literal and `messages` 
  * must be an array literal, with the last argument being a string literal and all previous elements being an array literal with 
  * a string literal as the first element.
  * 
- * The `auto-i18n-cli` looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
+ * The {@link https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli auto-i18n-cli} looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
  * 
  * ### **Translation (using auto-i18n-cli):** 
  * ```ts

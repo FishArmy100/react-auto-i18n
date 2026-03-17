@@ -1,7 +1,7 @@
 import { LANG_SCRIPT_CODES, LangScriptCode, SCRIPT_CODES } from "./index";
 
 /**
- * The type of all script codes (i.e. the suffix of the `LangScriptCode`)
+ * The type of all script codes (i.e. the suffix of the {@link LangScriptCode})
  */
 export type ScriptCode = LangScriptCode extends `${string}_${infer S}` ? S : never;
 
@@ -20,8 +20,8 @@ export type ScriptDirection = "ltr" | "rtl";
  * let langScript: LangScriptCode = "eng_Latn";
  * console.log(getScriptCode(langScript)); // prints out 'Latn'
  * ```
- * @param code The `LangScriptCode`
- * @returns the `Script` of the `LangScriptCode`
+ * @param code The {@link LangScriptCode}
+ * @returns the `Script` of the {@link LangScriptCode}
  */
 export function getScriptCode(code: LangScriptCode): ScriptCode
 {
@@ -29,9 +29,9 @@ export function getScriptCode(code: LangScriptCode): ScriptCode
 }
 
 /**
- * Converts a raw string into a `LangScriptCode`, with error checking
+ * Converts a raw string into a {@link LangScriptCode}, with error checking
  * @param str The string to be passed
- * @returns A `LangScriptCode` if the string is a valid `LangScriptCode` or `null` if it is not
+ * @returns A {@link LangScriptCode} if the string is a valid {@link LangScriptCode} or `null` if it is not
  */
 export function stringToLangScriptCode(str: string): LangScriptCode | null
 {
@@ -46,9 +46,9 @@ export function stringToLangScriptCode(str: string): LangScriptCode | null
 }
 
 /**
- * Converts a raw string into a `ScriptCode`, with error checking
+ * Converts a raw string into a {@link ScriptCode}, with error checking
  * @param str The string to be passed
- * @returns A `ScriptCode` if the string is a valid `ScriptCode` or `null` if it is not
+ * @returns A {@link ScriptCode} if the string is a valid {@link ScriptCode} or `null` if it is not
  */
 export function stringToScriptCode(str: string): ScriptCode | null
 {
@@ -100,9 +100,9 @@ const SCRIPT_DIRECTION: Record<ScriptCode, ScriptDirection> = {
 };
 
 /**
- * Gets the `ScriptDirection` from a `ScriptCode`
- * @param script a `ScriptCode`
- * @returns the `ScriptDirection` from the `ScriptCode`
+ * Gets the {@link ScriptDirection} from a {@link ScriptCode}
+ * @param script a {@link ScriptCode}
+ * @returns the {@link ScriptDirection} from the {@link ScriptCode}
  */
 export function getScriptDirection(script: ScriptCode): ScriptDirection 
 {
@@ -110,9 +110,9 @@ export function getScriptDirection(script: ScriptCode): ScriptDirection
 }
 
 /**
- * Gets the `ScriptDirection` from the `ScriptCode` of a `LangScriptCode`
- * @param script a `LangScriptCode`
- * @returns the `ScriptDirection` from the `ScriptCode` of a `LangScriptCode`
+ * Gets the {@link ScriptDirection} from the {@link ScriptCode} of a {@link LangScriptCode}
+ * @param script a {@link LangScriptCode}
+ * @returns the {@link ScriptDirection} from the {@link ScriptCode} of a {@link LangScriptCode}
  */
 export function getLangScriptDirection(langScript: LangScriptCode): ScriptDirection
 {

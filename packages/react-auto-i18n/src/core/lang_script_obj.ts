@@ -2,12 +2,12 @@ import { CountryFlag } from "../components";
 import { CountryCode, getCountryCode, getEnglishLangName, getLangCode, getLocaleLangName, getScriptCode, getScriptDirection, LangCode, LangScriptCode, ScriptCode, ScriptDirection } from "./index";
 
 /**
- * A helper wrapper object for the `LangScriptCode`, providing basic functions in an OOP style.
+ * A helper wrapper object for the {@link LangScriptCode}, providing basic functions in an OOP style.
  */
 export class LangScriptObj
 {
     /**
-     * The inner wrapped `LangScriptCode`
+     * The inner wrapped {@link LangScriptCode}
      */
     public readonly code: LangScriptCode;
 
@@ -17,8 +17,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the `LangCode` for the wrapped `LangScriptCode`
-     * @returns The `LangCode` for the wrapped `LangScriptCode`
+     * A helper function for getting the {@link LangCode} for the wrapped {@link LangScriptCode}
+     * @returns The {@link LangCode} for the wrapped {@link LangScriptCode}
      */
     public getLangCode(): LangCode
     {
@@ -26,8 +26,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the `ScriptCode` for the wrapped `LangScriptCode`
-     * @returns The `ScriptCode` for the wrapped `LangScriptCode`
+     * A helper function for getting the {@link ScriptCode} for the wrapped {@link LangScriptCode}
+     * @returns The {@link ScriptCode} for the wrapped {@link LangScriptCode}
      */
     public getScriptCode(): ScriptCode
     {
@@ -35,8 +35,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the locale name for the wrapped `LangScriptCode`
-     * @returns The `LangCode` for the wrapped `LangScriptCode`
+     * A helper function for getting the locale name for the wrapped {@link LangScriptCode}
+     * @returns The {@link LangCode} for the wrapped {@link LangScriptCode}
      */
     public getName(): string | null
     {
@@ -44,8 +44,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the english name for the wrapped `LangScriptCode`
-     * @returns The `LangCode` for the wrapped `LangScriptCode`
+     * A helper function for getting the english name for the wrapped {@link LangScriptCode}
+     * @returns The {@link LangCode} for the wrapped {@link LangScriptCode}
      */
     public getEnglishName(): string | null
     {
@@ -53,8 +53,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the `CountryCode` most associated with this `LangScriptCode`, or `null` if there is none
-     * @returns the `CountryCode` most associated with this `LangScriptCode, or `null` if there is none
+     * A helper function for getting the {@link CountryCode} most associated with this {@link LangScriptCode}, or `null` if there is none
+     * @returns the {@link CountryCode} most associated with this `LangScriptCode, or `null` if there is none
      */
     public getCountry(): CountryCode | null
     {
@@ -62,8 +62,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function that invokes the `CountryFlag` component, with the country code most associated with this `LangScriptCode`, or null if there is none
-     * @returns the `CountryFlag` component, with the country code most associated with this `LangScriptCode`, or null if there is none
+     * A helper function that invokes the {@link CountryFlag} component, with the country code most associated with this {@link LangScriptCode}, or null if there is none
+     * @returns the {@link CountryFlag} component, with the country code most associated with this {@link LangScriptCode}, or null if there is none
      */
     public getCountryFlag(): React.ReactElement | null
     {
@@ -72,8 +72,8 @@ export class LangScriptObj
     }
 
     /**
-     * A helper function for getting the `ScriptDirection` for wrapped `LangScriptCode`
-     * @returns the `ScriptDirection` for wrapped `LangScriptCode`
+     * A helper function for getting the {@link ScriptDirection} for wrapped {@link LangScriptCode}
+     * @returns the {@link ScriptDirection} for wrapped {@link LangScriptCode}
      */
     public getScriptDirection(): ScriptDirection
     {

@@ -1,0 +1,21 @@
+{
+  "heading": "번역 데모에 오신 것을 환영합니다!",
+  "subheading": "이 앱은 'react-auto-i18n' 라이브러리를 보여줍니다.",
+  "locale.title": "현재 지역 지부",
+  "switch.title": "스위치 언어",
+  "counter.title": "애플 카운터",
+  "examples.title": "코드 예시",
+  "btn.liked": "마음에 드셨어요! ❤️",
+  "btn.like": "이 데모♡처럼",
+  "footer.note": "이 페이지의 모든 텍스트는 자동으로 번역됩니다.",
+  "apples.count": [
+    "사과 🍎 하나 있어요",
+    "사과🍎가 {{$count}} 개 있네",
+    "사과🍏가 없네"
+  ],
+  "apples.prompt": [
+    "사과가 엄청 많네요!",
+    "계속 가!",
+    "아래에 사과를 추가하세요."
+  ]
+}

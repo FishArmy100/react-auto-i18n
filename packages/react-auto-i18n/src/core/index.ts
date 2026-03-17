@@ -233,30 +233,30 @@ export const LANG_SCRIPT_CODES = [
 ] as const;
 
 /**
- * The type of all supported `LangScriptCode`s
+ * The type of all supported {@link LangScriptCode}'s
  */
 export type LangScriptCode = typeof LANG_SCRIPT_CODES[number];
 
 
 /**
- * A list of all `LangCode`s
+ * A list of all {@link LangCode}'s
  */
 export const LANG_CODES = [
     ...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[0]))
 ] as const as LangCode[]; // needs to be here, otherwise breaks definitions, cause this would be imported LANG_SCRIPT_CODES
 
 /**
- * A list of all `ScriptCode`s
+ * A list of all {@link ScriptCode}'s
  */
 export const SCRIPT_CODES = [
   	...new Set(LANG_SCRIPT_CODES.map(code => code.split('_')[1]))
 ] as const as ScriptCode[]; // needs to be here, otherwise breaks definitions, cause this would be imported LANG_SCRIPT_CODES
 
 /**
- * A utility function for converting a `LangCode` and a `ScriptCode` into a `LangScriptCode`
- * @param lang The `LangCode` for the `LangScriptCode`
- * @param script The `ScriptCode` for the `LangScriptCode`
- * @returns The formatted `LangScriptCode`
+ * A utility function for converting a {@link LangCode} and a {@link LangCode} into a {@link LangScriptCode}
+ * @param lang The {@link LangCode} for the {@link LangScriptCode}
+ * @param script The {@link LangCode} for the {@link LangScriptCode}
+ * @returns The formatted {@link LangScriptCode}
  */
 export function formatLangScriptCode(lang: LangCode, script: ScriptCode): LangScriptCode
 {

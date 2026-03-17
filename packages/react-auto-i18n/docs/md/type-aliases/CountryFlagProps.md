@@ -8,9 +8,9 @@
 
 > **CountryFlagProps** = `React.HtmlHTMLAttributes`\<`HTMLSpanElement`\> & `object`
 
-Defined in: [components/CountryFlag.tsx:8](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/components/CountryFlag.tsx#L8)
+Defined in: [components/CountryFlag.tsx:8](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/components/CountryFlag.tsx#L8)
 
-The properties for `CountryFlag`
+The properties for [CountryFlag](../functions/CountryFlag.md)
 
 ## Type Declaration
 
@@ -18,4 +18,4 @@ The properties for `CountryFlag`
 
 > **country**: [`CountryCode`](CountryCode.md)
 
-The country code for `CountryFlag`
+The [CountryCode](CountryCode.md) for [CountryFlag](../functions/CountryFlag.md)
