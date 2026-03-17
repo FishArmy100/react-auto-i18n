@@ -1,0 +1,21 @@
+{
+  "heading": "Benvenuti alla demo di traduzione!",
+  "subheading": "Questa app mostra la libreria 'react-auto-i18n'.",
+  "locale.title": "Current Locale",
+  "switch.title": "Linguaggio Switch",
+  "counter.title": "Contatore di mele",
+  "examples.title": "Esempi di codice",
+  "btn.liked": "Ti è piaciuto! ❤️",
+  "btn.like": "Come questa demo ♡",
+  "footer.note": "Tutto il testo in questa pagina è tradotto automaticamente.",
+  "apples.count": [
+    "Hai una mela 🍎",
+    "Hai {{$count}} mele 🍎",
+    "Non hai mele 🍏"
+  ],
+  "apples.prompt": [
+    "Sono tante mele!",
+    "Continua!",
+    "Aggiungi alcune mele qui sotto."
+  ]
+}

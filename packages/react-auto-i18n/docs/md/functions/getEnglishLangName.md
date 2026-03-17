@@ -8,7 +8,7 @@
 
 > **getEnglishLangName**(`code`): `string` \| `null`
 
-Defined in: [core/lang\_code.ts:46](https://github.com/FishArmy100/react-auto-i18n/blob/16486c7babf9eec30bf06a8177ae06e9210655e8/packages/react-auto-i18n/src/core/lang_code.ts#L46)
+Defined in: [core/lang\_code.ts:46](https://github.com/FishArmy100/react-auto-i18n/blob/7d4d8d009401fff6a5f8c50003f857904ae4af2b/packages/react-auto-i18n/src/core/lang_code.ts#L46)
 
 Gets the english name of a [LangCode](../type-aliases/LangCode.md)
 

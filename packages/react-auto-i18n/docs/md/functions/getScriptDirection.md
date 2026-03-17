@@ -8,7 +8,7 @@
 
 > **getScriptDirection**(`script`): [`ScriptDirection`](../type-aliases/ScriptDirection.md)
 
-Defined in: [core/script\_code.ts:107](https://github.com/FishArmy100/react-auto-i18n/blob/16486c7babf9eec30bf06a8177ae06e9210655e8/packages/react-auto-i18n/src/core/script_code.ts#L107)
+Defined in: [core/script\_code.ts:107](https://github.com/FishArmy100/react-auto-i18n/blob/7d4d8d009401fff6a5f8c50003f857904ae4af2b/packages/react-auto-i18n/src/core/script_code.ts#L107)
 
 Gets the [ScriptDirection](../type-aliases/ScriptDirection.md) from a [ScriptCode](../type-aliases/ScriptCode.md)
 
