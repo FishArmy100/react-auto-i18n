@@ -8,6 +8,6 @@
 
 > **LangScriptCode** = *typeof* [`LANG_SCRIPT_CODES`](../variables/LANG_SCRIPT_CODES.md)\[`number`\]
 
-Defined in: [core/index.ts:238](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/core/index.ts#L238)
+Defined in: [core/index.ts:239](https://github.com/FishArmy100/react-auto-i18n/blob/16486c7babf9eec30bf06a8177ae06e9210655e8/packages/react-auto-i18n/src/core/index.ts#L239)
 
 The type of all supported LangScriptCode's

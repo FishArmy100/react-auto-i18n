@@ -5,6 +5,7 @@ export * from "./country";
 export * from "./lang_code";
 export * from "./script_code";
 export * from "./lang_script_obj";
+export * from "./database";
 
 /**
  * A list of all LangScriptCodes supported by the translation engine

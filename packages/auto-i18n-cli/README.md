@@ -64,6 +64,7 @@ npx auto-i18n-cli \
 | `--azureRegion` | | | Azure Translator region (default: `eastus`) |
 | `--azureEndpoint` | | | Custom Azure Translator endpoint URL |
 | `--nllbModel` | | | NLLB model name (default: `facebook/nllb-200-distilled-1.3B`) |
+| `--multiFile` | `-m` | | Separate each language into its own file with a manifest (default: `false`) |
 | `--help` | `-h` | | Show help message |
 
 ---
@@ -98,6 +99,8 @@ npx auto-i18n-cli -i "./src" -b nllb --nllbModel "facebook/nllb-200-1.3B" -l fra
 
 ## Output
 
+### Single File Format (default)
+
 The CLI produces a JSON file structured as an `I18nDatabase`, with one top-level key per language:
 
 ```json
@@ -121,11 +124,63 @@ This file can be imported directly and passed to `I18nProvider` in your React ap
 
 ```tsx
 import db from './assets/translations.json'
-import { I18nProvider } from 'react-auto-i18n'
+import { I18nProvider, SimpleI18nDb } from 'react-auto-i18n'
 
-<I18nProvider defaultLang="eng_Latn" defaultDatabase={db}>
+<I18nProvider defaultLang="eng_Latn" db={new SimpleI18nDb(db)}>
   <App />
 </I18nProvider>
+```
+
+Or, you can also load the file if it is in your public folder.
+
+```tsx
+import { I18nFileProvider } from 'react-auto-i18n'
+
+<I18nFileProvider defaultLang="eng_Latn" path="./translations.json">
+  <App />
+</I18nFileProvider>
+```
+
+### Multi-File Format (`--multiFile`)
+
+When using the `--multiFile` (or `-m`) flag, translations are split into separate JSON files organized in a directory with a manifest:
+
+```
+translations/
+├── manifest.json
+├── eng_Latn.json
+├── spa_Latn.json
+└── fra_Latn.json
+```
+
+The `manifest.json` file contains:
+
+```json
+{
+  "langs": ["eng_Latn", "spa_Latn", "fra_Latn"]
+}
+```
+
+Each language file contains only that language's translations:
+
+```json
+{
+  "greeting": "¡Hola!",
+  "farewell": "¡Adiós!"
+}
+```
+
+You can use `I18nMultiFileProvider` with the multi-file format:
+
+```tsx
+import { I18nMultiFileProvider } from 'react-auto-i18n'
+
+<I18nMultiFileProvider 
+  defaultLang="eng_Latn" 
+  path="./translations"
+>
+  <App />
+</I18nMultiFileProvider>
 ```
 
 ---

@@ -8,7 +8,7 @@
 
 > **getCountryCode**(`code`): [`CountryCode`](../type-aliases/CountryCode.md) \| `null`
 
-Defined in: [core/country.ts:40](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/core/country.ts#L40)
+Defined in: [core/country.ts:40](https://github.com/FishArmy100/react-auto-i18n/blob/16486c7babf9eec30bf06a8177ae06e9210655e8/packages/react-auto-i18n/src/core/country.ts#L40)
 
 Gets the [CountryCode](../type-aliases/CountryCode.md) for the given [LangCode](../type-aliases/LangCode.md). Essentially, what country most primarily speaks this language. 
 For example, this will return `US` even though Britain, Australia, etc. also speak the language.
