@@ -32,10 +32,10 @@ export type CountryCode =
   | 'ZA' | 'ZM' | 'ZW';
 
 /**
- * Gets the `CountryCode` for the given `LangCode`. Essentially, what country most primarily speaks this language. 
+ * Gets the {@link CountryCode} for the given {@link LangCode}. Essentially, what country most primarily speaks this language. 
  * For example, this will return `US` even though Britain, Australia, etc. also speak the language.
- * @param code The `LangCode`
- * @returns A `CountryCode` which represents the country 'most commonly' associated with that language. It will return null if there is no country typically associated with this language.
+ * @param code The {@link LangCode}
+ * @returns A {@link CountryCode} which represents the country ***most commonly*** associated with that language. It will return null if there is no country typically associated with this language.
  */
 export function getCountryCode(code: LangCode): CountryCode | null
 {

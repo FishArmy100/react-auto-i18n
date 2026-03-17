@@ -6,7 +6,9 @@
     "scripts": {
         "publish_website": "npm run publish_website:docs && npm run publish_website:example",
         "publish_website:docs": "npm run docs --workspace=react-auto-i18n",
-        "publish_website:example": "npm run build:pages --workspace=example-website"
+        "publish_website:example": "npm run build:pages --workspace=example-website",
+        "build": "npm run build --workspace=auto-i18n-cli && npm run build --workspace=react-auto-i18n",
+        "example": "npm run build && npm run dev --workspace=example-website"
     },
     "dependencies": {
         "all-iso-language-codes": "^1.0.21",

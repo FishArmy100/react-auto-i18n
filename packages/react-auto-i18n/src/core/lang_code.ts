@@ -1,19 +1,19 @@
 import { LANG_CODES, LANG_SCRIPT_CODES, LangScriptCode } from "./index";
 
 /**
- * The type of all language codes (i.e. the prefix of the `LangScriptCode`)
+ * The type of all language codes (i.e. the prefix of the {@link LangScriptCode})
  */
 export type LangCode = LangScriptCode extends `${infer L}_${string}` ? L : never;
 
 /**
- * Gets the LangCode from the `LangScriptCode`. \
+ * Gets the LangCode from the {@link LangScriptCode}. \
  * **Example:**
  * ```ts
  * let langScript: LangScriptCode = "eng_Latn";
  * console.log(getLangCode(langScript)); // prints out 'eng'
  * ```
- * @param code The `LangScriptCode`
- * @returns the `LangCode` of the `LangScriptCode`
+ * @param code The {@link LangScriptCode}
+ * @returns the {@link LangCode} of the {@link LangScriptCode}
  */
 export function getLangCode(code: LangScriptCode): LangCode
 {
@@ -22,9 +22,9 @@ export function getLangCode(code: LangScriptCode): LangCode
 
 
 /**
- * Converts a raw string into a `LangCode`, with error checking
+ * Converts a raw string into a {@link LangCode}, with error checking
  * @param str The string to be passed
- * @returns A `LangCode` if the string is a valid `LangCode` or `null` if it is not
+ * @returns A {@link LangCode} if the string is a valid {@link LangCode} or `null` if it is not
  */
 export function stringToLangCode(str: string): LangCode | null
 {
@@ -39,9 +39,9 @@ export function stringToLangCode(str: string): LangCode | null
 }
 
 /**
- * Gets the english name of a `LangCode`
- * @param code A `LangCode`
- * @returns The english name of the passed `LangCode`
+ * Gets the english name of a {@link LangCode}
+ * @param code A {@link LangCode}
+ * @returns The english name of the passed {@link LangCode}
  */
 export function getEnglishLangName(code: LangCode): string | null
 {
@@ -263,9 +263,9 @@ export function getEnglishLangName(code: LangCode): string | null
 
 
 /**
- * Gets the local name of a `LangCode`
- * @param code A `LangCode`
- * @returns The local name of the passed `LangCode`
+ * Gets the local name of a {@link LangCode}
+ * @param code A {@link LangCode}
+ * @returns The local name of the passed {@link LangCode}
  */
 export function getLocaleLangName(code: LangCode): string | null
 {

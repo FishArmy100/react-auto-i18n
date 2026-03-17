@@ -8,11 +8,11 @@
 
 > **\_\_t**\<`T`\>(`key`, `message`, `arg?`): `string`
 
-Defined in: [i18n.ts:132](https://github.com/FishArmy100/react-auto-i18n/blob/dd313c48ee3b4e14b8c6d5a0eb2ab821b6785829/packages/react-auto-i18n/src/i18n.ts#L132)
+Defined in: [i18n.ts:103](https://github.com/FishArmy100/react-auto-i18n/blob/901ade87a59ada023a2450a75490e0051189f559/packages/react-auto-i18n/src/i18n.ts#L103)
 
 The primary translation function for this API. 
-When using `auto-i18n-cli` to parse the program and generate the database automatically, both arguments must be raw string literals.
-The `auto-i18n-cli` looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
+When using [auto-i18n-cli](https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli) to parse the program and generate the database automatically, both arguments must be raw string literals.
+The [auto-i18n-cli](https://github.com/FishArmy100/react-auto-i18n/tree/main/packages/auto-i18n-cli) looks for all invocations of this function and generates a `I18nDatabase` compatible json file, with the proper translations.
 
 ### **Translation (using auto-i18n-cli):** 
 ```ts

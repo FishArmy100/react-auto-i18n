@@ -1,4 +1,5 @@
 import { LangScriptCode } from "."
+import { __t } from "../i18n";
 
 /**
  * Essentially represents all translations loaded for this application. It can be represented in JSON as:
@@ -30,13 +31,41 @@ export type I18nDatabaseType = Partial<Readonly<Record<LangScriptCode, LanguageT
  */
 export type LanguageTranslations = Partial<Readonly<Record<string, string | string[]>>>
 
+/**
+ * The interface for a translation database
+ */
 export interface I18nDatabase
 {
+    /**
+     * Gets the translation for a given language and key
+     * @param lang A {@link LangScriptCode}
+     * @param key A key for the given translation in the specified language
+     * @returns Either a single translation (for {@link __t}), multiple translations (for {@link __tv}), or `undefined` if there is no translations
+     */
     get(lang: LangScriptCode, key: string): string[] | string | undefined;
-    langs(): LangScriptCode[],
+
+    /**
+     * @returns All the {@link LangScriptCode}'s that the database contains
+     */
+    langs(): LangScriptCode[]
+
+    /**
+     * Allows the user to add a listener to see if the internal state of the database has changed. This can be used for things like caching
+     * @param listener 
+     */
+    addOnChangeListener(listener: () => void): void,
+
+    /**
+     * Allows the user to remove a listener that would fire if the internal state of the database has changed. This can be used for things like caching
+     * @param listener 
+     */
+    removeOnChangeListener(listener: () => void): boolean,
 }
 
-export class RawI18nDb implements I18nDatabase
+/**
+ * A basic wrapper around the {@link I18nDatabaseType} which implements {@link I18nDatabase}. It also gives some helper functions for loading it from a file.
+ */
+export class SimpleI18nDb implements I18nDatabase
 {
     private readonly db: I18nDatabaseType
 
@@ -45,12 +74,20 @@ export class RawI18nDb implements I18nDatabase
         this.db = db;
     }
 
-    public static async load(path: string): Promise<RawI18nDb>
+    addOnChangeListener(): void {}
+    removeOnChangeListener(): boolean { return false }
+
+    /**
+     * Creates a {@link SimpleI18nDb} from a file. The file the path points to must be in the format of {@link I18nDatabaseType}
+     * @param path The path of the database file.
+     * @returns 
+     */
+    public static async load(path: string): Promise<SimpleI18nDb>
     {
         const res = await fetch(path)
         const json = await res.text()
         const db = JSON.parse(json) as I18nDatabaseType
-        return new RawI18nDb(db)
+        return new SimpleI18nDb(db)
     }
 
     public get(lang: LangScriptCode, key: string): string[] | string | undefined 
@@ -67,13 +104,20 @@ export class RawI18nDb implements I18nDatabase
 export const FOLDER_LANGUAGE_MANIFEST_NAME: string = "manifest.json"
 export type FolderLanguageManifestType = { langs: LangScriptCode[] }
 
-export class CachedI18nDb implements I18nDatabase
+/**
+ * A cached database, which will only load languages if necessary. 
+ */
+export class CachedMultiFileI18nDb implements I18nDatabase
 {
     private readonly supportedLangs: LangScriptCode[];
     private readonly db: Partial<Record<LangScriptCode, LanguageTranslations>>
     private readonly path: string;
-    private onChangedListeners: ((db: CachedI18nDb) => void)[]
+    private onChangedListeners: (() => void)[]
 
+    /**
+     * @param path The folder path which contains all multiple files of type {@link LanguageTranslations} and each must be named using {@link LangScriptCode} followed by a `.json`
+     * @param langs Represents all of the languages that the translation folder contains. Essentially, if the folder has a file for a given language, add that language here.
+     */
     public constructor(path: string, langs: LangScriptCode[])
     {
         this.path = path;
@@ -81,15 +125,20 @@ export class CachedI18nDb implements I18nDatabase
         this.db = {}
         this.onChangedListeners = [];
     }
-
-    public static async load(folder: string): Promise<CachedI18nDb>
+    
+    /**
+     * Creates a {@link CachedMultiFileI18nDb} from a folder path.
+     * The folder path which contains all multiple files of type {@link LanguageTranslations}, and each must be named using {@link LangScriptCode} followed by a `.json`. 
+     * It needs to point to a folder inside of the `public` folder, and the folder must contain a `manifest.json` file of the format {@link FolderLanguageManifestType}
+     */
+    public static async load(folder: string): Promise<CachedMultiFileI18nDb>
     {
         const manifestPath = folder + "/" + FOLDER_LANGUAGE_MANIFEST_NAME
         const registered = await fetch(manifestPath)
             .then(f => f.text())
             .then(t => JSON.parse(t) as FolderLanguageManifestType);
 
-        return new CachedI18nDb(folder, registered.langs);
+        return new CachedMultiFileI18nDb(folder, registered.langs);
     }
 
     public get(lang: LangScriptCode, key: string): string[] | string | undefined 
@@ -121,12 +170,12 @@ export class CachedI18nDb implements I18nDatabase
         return this.supportedLangs;
     }
 
-    public addOnChangeListener(listener: (db: CachedI18nDb) => void)
+    public addOnChangeListener(listener: () => void)
     {
         this.onChangedListeners.push(listener);
     }
 
-    public removeOnChangeListener(listener: (db: CachedI18nDb) => void): boolean
+    public removeOnChangeListener(listener: () => void): boolean
     {
         const len = this.onChangedListeners.length;
         this.onChangedListeners = this.onChangedListeners.filter(l => l !== listener);
@@ -136,9 +185,17 @@ export class CachedI18nDb implements I18nDatabase
     private invokeOnChangeListeners()
     {
         this.onChangedListeners.forEach(l => {
-            l(this);
+            l();
         })
     }
 }
 
-export const I18nDatabaseDefault: I18nDatabase = { get: () => undefined, langs: () => [] }
+/**
+ * The default (empty) {@link I18nDatabase}. 
+ */
+export const I18nDatabaseDefault: I18nDatabase = { 
+    get: () => undefined, 
+    langs: () => [], 
+    addOnChangeListener: () => {}, 
+    removeOnChangeListener: () => false, 
+}

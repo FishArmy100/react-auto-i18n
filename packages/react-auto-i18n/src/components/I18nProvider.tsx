@@ -1,66 +1,52 @@
 import { setCurrentLocalRaw, setI18nDatabaseRaw } from "../i18n";
 import { LangScriptCode, LangScriptObj } from "../core";
-import React, { createContext, useContext, useEffect, useState } from "react"
-import { CachedI18nDb, I18nDatabase, I18nDatabaseDefault, I18nDatabaseType, RawI18nDb } from "../core/database";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react"
+import { CachedMultiFileI18nDb, I18nDatabase, I18nDatabaseDefault, I18nDatabaseType, SimpleI18nDb, LanguageTranslations, FolderLanguageManifestType } from "../core/database";
 
 /**
- * The context type for the `I18nProvider`
+ * The context type for the {@link I18nProvider}
  */
 export interface I18nContextType
 {
     /**
-     * The currently set `LangScriptCode`
+     * The currently set {@link LangScriptCode}
      */
     readonly locale: LangScriptCode,
     
     /**
-     * Gets a wrapper `LangScriptObj` around this locale
-     * @returns a wrapper `LangScriptObj` around this locale
+     * Gets a wrapper {@link LangScriptObj} around this locale
+     * @returns a wrapper {@link LangScriptObj} around this locale
      */
     readonly getLocaleObj: () => LangScriptObj;
 
     /**
-     * The currently set `I18nDatabase`
+     * The currently set {@link I18nDatabase}
      */
     readonly database: I18nDatabase,
 
     /**
-     * Sets the current `LangScriptCode`
+     * Sets the current {@link LangScriptCode}
      * @param locale The current local to set
      */
     readonly setLocale: (locale: LangScriptCode) => void,
     
     /**
-     * Sets the current `I18nDatabase`
+     * Sets the current {@link I18nDatabase}
      * @param locale The current local to set
      */
     readonly setDatabase: (database: I18nDatabase) => void,
 
     /**
-     * This is essentially a helper function for doing Object.keys on the database
-     * @returns Returns all the loaded `LangScriptCode`s in the current I18nDatabase.
+     * This is essentially a helper function for doing `.database.langs()`
+     * @returns Returns all the loaded {@link LangScriptCode}'s in the current I18nDatabase.
      */
     readonly getLocales: () => LangScriptCode[],
 }
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
-export type I18nDatabaseSource = |{
-    mode: "inline",
-    data: I18nDatabaseType
-} |{
-    mode: "single-file",
-    path: string,
-} |{
-    mode: "multi-file",
-    path: string,
-} |{
-    mode: "raw",
-    db: I18nDatabase
-}
-
 /**
- * The properties for the `I18nProvider`
+ * The properties for the {@link I18nProvider}
  */
 export type I18nProviderProps = {
     /**
@@ -68,44 +54,47 @@ export type I18nProviderProps = {
      */
     children: React.ReactNode,
     /**
-     * The default language code. When passed to the `I18nProvider`, defaults to `"eng_Latn"`
+     * The default language code. When passed to the {@link I18nProvider}, defaults to `"eng_Latn"`
      */
     defaultLang: LangScriptCode,
     
     /**
-     * The default database. When passed to the `I18nProvider`, defaults to `{}`
+     * The {@link I18nDatabase} for this provider
      */
-    dbSource: I18nDatabaseSource,
+    db: I18nDatabase,
 }
 
 /**
- * The provider for the `I18nDatabase` and current local.
+ * The provider for the {@link I18nDatabase} and current local.
  * 
- * Allows for getting and setting the global state used by `__t` in a more React like way.
+ * Allows for getting and setting the global state used by {@link __t} in a more React like way.
+ * 
  * ### **Example:**
  * ```tsx
  * import { StrictMode } from 'react'
  * import { createRoot } from 'react-dom/client'
  * import App from './App.tsx'
- * import { I18nProvider } from "react-auto-i18n";
- * import db from "./assets/translations.json";
+ * import { I18nProvider, RawI18nDb } from "react-auto-i18n";
+ * import translations from "./assets/translations.json";
+ * 
+ * const db = new RawI18nDb(translations);
  * 
  * createRoot(document.getElementById('root')!).render(
  * 	  <I18nProvider 
- * 	  	default_lang="eng_Latn" 
- * 	  	default_database={db}
+ * 	  	defaultLang="eng_Latn" 
+ * 	  	db={db}
  * 	  >
  * 	  	<App />
  * 	  </I18nProvider>
  * )
  * ```
  * 
- * @param props The `I18nProviderProps` for this provider
+ * @param props The {@link I18nProviderProps} for this provider
  */
 export function I18nProvider({
     children,
     defaultLang = "eng_Latn",
-    dbSource,
+    db: dbInit,
 }: I18nProviderProps): React.ReactElement
 {
     const [localeState, setLocaleState] = useState<LangScriptCode>(() => {
@@ -113,7 +102,10 @@ export function I18nProvider({
         return defaultLang;
     });
 
-    const [databaseState, setDatabaseState] = useState<I18nDatabase>(I18nDatabaseDefault);
+    const [databaseState, setDatabaseState] = useState<I18nDatabase>(() => {
+        setI18nDatabaseRaw(dbInit);
+        return dbInit;
+    });
     
     const setDatabase = (db: I18nDatabase) => {
         setI18nDatabaseRaw(db);
@@ -126,60 +118,20 @@ export function I18nProvider({
     }
 
     // Load from file or folder
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
     useEffect(() => {
-        if (dbSource.mode === "inline") 
-        {
-            setDatabase(new RawI18nDb(dbSource.data));
-            return;
-        }
-        else if (dbSource.mode === "raw")
-        {
-            setDatabase(dbSource.db);
-        }
+        const listener = () => forceUpdate();
+        databaseState.addOnChangeListener(listener);
+        
+        return () => { 
+            databaseState.removeOnChangeListener(listener);
+        };
+    }, [databaseState]);
 
-        let cancelled = false;
-
-        if (dbSource.mode === "single-file") 
-        {
-            RawI18nDb.load(dbSource.path).then(db => {
-                if (!cancelled) 
-                {
-                    setDatabase(db)
-                };
-            });
-        } 
-        else if (dbSource.mode === "multi-file") 
-        {
-            let cachedDb: CachedI18nDb | null = null;
-
-            const listener = (db: CachedI18nDb) => {
-                if (!cancelled) 
-                {
-                    setDatabase({
-                        get: db.get.bind(db),
-                        langs: db.langs.bind(db),
-                    })
-                };
-            };
-
-            CachedI18nDb.load(dbSource.path).then(db => {
-                if (cancelled) 
-                    return;
-
-                cachedDb = db;
-                db.addOnChangeListener(listener);
-                setDatabase(db);
-            });
-
-            return () => {
-                cancelled = true;
-                cachedDb?.removeOnChangeListener(listener);
-            };
-        }
-
-        return () => { cancelled = true; };
-
-    }, [dbSource]);
+    useEffect(() => {
+        setDatabase(dbInit);
+    }, [dbInit])
     
     const getLocales = () => databaseState.langs();
     const getLocaleObj = () => new LangScriptObj(localeState);
@@ -192,7 +144,7 @@ export function I18nProvider({
 }
 
 /**
- * Allows for the modification and usage of the global database and locale states. Must be used on the context of a `I18nProvider`.
+ * Allows for the modification and usage of the global database and locale states. Must be used on the context of a {@link I18nProvider}.
  * 
  * ### **Example:**
  * ```ts
@@ -202,7 +154,7 @@ export function I18nProvider({
  * let msg = __t("message", "Hello!");
  * console.log(msg); // Hola!
  * ```
- * @returns The instance of the current `I18nContext`
+ * @returns The instance of the current {@link I18nProvider}
  */
 export function useI18n(): I18nContextType
 {
