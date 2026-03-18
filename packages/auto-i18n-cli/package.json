@@ -1,5 +1,5 @@
 {
-    "name": "auto-i18n-cli",
+    "name": "@fisharmy100/auto-i18n-cli",
     "version": "1.0.0",
     "description": "A translation generation library",
     "type": "module",
