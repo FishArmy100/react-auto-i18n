@@ -8,7 +8,7 @@
 
 > **setCurrentLocalRaw**(`locale`): `void`
 
-Defined in: [i18n.ts:32](https://github.com/FishArmy100/react-auto-i18n/blob/16486c7babf9eec30bf06a8177ae06e9210655e8/packages/react-auto-i18n/src/i18n.ts#L32)
+Defined in: [i18n.ts:32](https://github.com/FishArmy100/react-auto-i18n/blob/7d4d8d009401fff6a5f8c50003f857904ae4af2b/packages/react-auto-i18n/src/i18n.ts#L32)
 
 Sets the raw locale used for translation. This is used by the [\_\_t](t.md) and [\_\_tv](tv.md) functions. \
 **NOTE:** Prefer to use `useI18n().setLocale(...)`, as this updates the current state.
