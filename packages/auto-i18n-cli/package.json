@@ -1,6 +1,6 @@
 {
     "name": "@fisharmy100/auto-i18n-cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A translation generation library",
     "type": "module",
     "main": "dist/index.js",
@@ -21,7 +21,8 @@
     "author": "Nate Craver",
     "license": "MIT",
     "files": [
-        "dist"
+        "dist",
+        "postinstall.cjs"
     ],
     "bin": {
         "auto-i18n-cli": "./dist/index.js"
